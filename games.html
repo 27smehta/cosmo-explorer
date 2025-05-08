@@ -1,0 +1,192 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games - Cosmic Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+
+  <header class="container mx-auto py-8 px-4">
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+      </div>
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+      <li><a href="index.html" >Home</a></li>
+      <li><a href="articles.html">Articles</a></li>
+      <li><a href="games.html" class="active">Games</a></li>
+      <li><a href="planets.html">Planet Weight Calculator</a></li>
+      <li><a href="event-calendar.html">Event Calender</a></li>
+
+
+    </ul>
+  </nav>
+</header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Space <span class="highlight">Games</span></h1>
+        <p>Test your skills and knowledge with these space-themed games.</p>
+      </div>
+    </section>
+
+    <section class="games-section">
+      <div class="container">
+        <div class="game-tabs">
+          <button class="game-tab active" data-game="asteroid-defender">Asteroid Defender</button>
+          <button class="game-tab" data-game="space-trivia">Space Trivia Challenge</button>
+          <button class="game-tab" data-game="planet-matcher">Planet Matcher</button>
+        </div>
+        
+        <!-- Asteroid Defender -->
+        <div class="game-content active" id="asteroid-defender">
+          <div class="game-info">
+            <h2>Asteroid Defender</h2>
+            <p>Protect Earth from incoming asteroids in this arcade-style space shooter!</p>
+            <div class="game-instructions">
+              <h3>How to Play:</h3>
+              <ul>
+                <li>Use arrow keys to move your spaceship</li>
+                <li>Press spacebar to shoot lasers</li>
+                <li>Destroy asteroids before they reach Earth</li>
+                <li>Larger asteroids require multiple hits</li>
+                <li>Game ends if too many asteroids hit Earth</li>
+              </ul>
+            </div>
+            <button class="btn primary play-btn" id="asteroidPlay">Play Game</button>
+          </div>
+          <div class="game-display">
+            <canvas id="asteroidGame" width="600" height="400"></canvas>
+            <div class="game-controls">
+              <div class="score-display">Score: <span id="asteroidScore"></span></div>
+              <div class="lives-display">Lives: <span id="asteroidLives"></span></div>
+            </div>
+            <div class="game-message" id="asteroidMessage">
+              <h3>Asteroid Defender</h3>
+              <p>Click Play to start!</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Space Trivia Challenge -->
+        <div class="game-content" id="space-trivia">
+          <div class="game-info">
+            <h2>Space Trivia Challenge</h2>
+            <p>Test your knowledge of space with this fast-paced trivia game!</p>
+            <div class="game-instructions">
+              <h3>How to Play:</h3>
+              <ul>
+                <li>Answer 10 space-related questions</li>
+                <li>You have 30 seconds to answer each question</li>
+                <li>Select the correct answer from multiple choices</li>
+                <li>Your final score shows how much you know about space</li>
+                <li>Challenge yourself to beat your high score!</li>
+              </ul>
+            </div>
+            <button class="btn primary play-btn" id="triviaPlay">Play Game</button>
+          </div>
+          <div class="game-display">
+            <div id="triviaGame">
+              <div class="trivia-header">
+                <div class="trivia-progress">Question <span id="currentQuestion">0</span>/10</div>
+                <div class="timer">Time: <span id="timeLeft">30</span>s</div>
+              </div>
+              <div class="trivia-question" id="questionText"></div>
+              <div class="trivia-options" id="optionsContainer"></div>
+              <div class="trivia-feedback" id="feedbackText"></div>
+              <button id="nextQuestion" class="btn secondary">Next Question</button>
+            </div>
+            <div class="game-message" id="triviaMessage">
+              <h3>Space Trivia Challenge</h3>
+              <p>Click Play to start!</p>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Planet Matcher -->
+        <div class="game-content" id="planet-matcher">
+          <div class="game-info">
+            <h2>Planet Matcher</h2>
+            <p>Test your memory by matching pairs of planets and space objects!</p>
+            <div class="game-instructions">
+              <h3>How to Play:</h3>
+              <ul>
+                <li>Click on cards to flip them</li>
+                <li>Find matching pairs of space objects</li>
+                <li>Match all pairs to win</li>
+                <li>Try to complete the game in as few moves as possible</li>
+                <li>Challenge yourself to beat your time record!</li>
+              </ul>
+            </div>
+            <button class="btn primary play-btn" id="matcherPlay">Play Game</button>
+          </div>
+          <div class="game-display">
+            <div id="matcherGame">
+              <div class="matcher-stats">
+                <div>Moves: <span id="moveCount">0</span></div>
+                <div>Matches: <span id="matchCount">0</span>/8</div>
+                <div>Time: <span id="gameTime">0</span>s</div>
+              </div>
+              <div class="matcher-grid" id="matcherGrid"></div>
+            </div>
+            <div class="game-message" id="matcherMessage">
+              <h3>Planet Matcher</h3>
+              <p>Click Play to start!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Site</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="articles.html">Articles</a></li>
+              <li><a href="games.html">Games</a></li>
+              <li><a href="planets.html">Planet Weight Calculator</a></li>
+              <li><a href="event-calendar.html">Event Calender</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Games</h4>
+            <ul>
+              <li><a href="games.html#asteroid-defender">Asteroid Defender</a></li>
+              <li><a href="games.html#space-trivia">Space Trivia</a></li>
+              <li><a href="games.html#planet-matcher">Planet Matcher</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Cosmic Explorer by Shaurya Mehta. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

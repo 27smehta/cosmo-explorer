@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Articles - Cosmic Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+      </div>
+      <div class="nav-toggle" id="navToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="articles.html" class="active">Articles</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="planets.html">Planet Weight Calculator</a></li>
+        <li><a href="event-calendar.html">Event Calender</a></li>
+
+
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-header">
+      <div class="container">
+        <h1>Space Exploration <span class="highlight">Articles</span></h1>
+        <p>Discover the latest breakthroughs and missions in space exploration.</p>
+      </div>
+    </section>
+
+    <section class="article-filter">
+      <div class="container">
+        <div class="filter-container">
+          <input type="text" id="articleSearch" class="search-input" placeholder="Search articles...">
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="science">Science</button>
+            <button class="filter-btn" data-filter="discovery">Discovery</button>
+            <button class="filter-btn" data-filter="mission">Mission</button>
+            <button class="filter-btn" data-filter="physics">Physics</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="articles">
+      <div class="container">
+        <div class="articles-grid">
+          <div class="article-card" data-category="science" id="nasa-quantum">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Science</div>
+            </div>
+            <div class="card-content">
+              <h3>NASA's First Space-Based Quantum Gravity Sensor</h3>
+              <p>NASA has developed the first-ever space-based quantum sensor for gravity measurements, revolutionizing how we study Earth and other planets.</p>
+              <div class="card-meta">
+                <span class="author">By Dr. Sarah Chen</span>
+                <span class="date">April 12, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('nasa-quantum')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="discovery" id="hubble-eagle">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Discovery</div>
+            </div>
+            <div class="card-content">
+              <h3>Hubble's Breathtaking New Image of Eagle Nebula</h3>
+              <p>The Hubble Space Telescope has captured a stunning new image of the Eagle Nebula, revealing previously unseen details.</p>
+              <div class="card-meta">
+                <span class="author">By Michael Roberts</span>
+                <span class="date">April 8, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('hubble-eagle')">Read Article</button>
+            </div>
+          </div>
+          
+          <div class="article-card" data-category="physics" id="dark-matter">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1465101162946-4377e57745c3?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Physics</div>
+            </div>
+            <div class="card-content">
+              <h3>Ultralight Dark Matter's Role in Black Hole Formation</h3>
+              <p>New research suggests ultralight dark matter may play a crucial role in the formation and evolution of black holes.</p>
+              <div class="card-meta">
+                <span class="author">By Dr. James Wong</span>
+                <span class="date">April 5, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('dark-matter')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="discovery" id="mars-habitability">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1545156521-77bd85671d30?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Discovery</div>
+            </div>
+            <div class="card-content">
+              <h3>Curiosity Rover's Evidence for Past Habitability on Mars</h3>
+              <p>NASA's Curiosity rover has uncovered compelling evidence that Mars once had conditions suitable for microbial life.</p>
+              <div class="card-meta">
+                <span class="author">By Emily Johnson</span>
+                <span class="date">April 1, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('mars-habitability')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="mission" id="spacex-iss">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Mission</div>
+            </div>
+            <div class="card-content">
+              <h3>SpaceX's Latest ISS Cargo Mission</h3>
+              <p>SpaceX successfully launched its newest cargo mission to the International Space Station, delivering critical supplies and scientific equipment.</p>
+              <div class="card-meta">
+                <span class="author">By Thomas Miller</span>
+                <span class="date">March 28, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('spacex-iss')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="physics" id="gamma-ray">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Physics</div>
+            </div>
+            <div class="card-content">
+              <h3>Gamma-ray Bursts Revealing Universe's Largest Structures</h3>
+              <p>Recent observations of gamma-ray bursts are helping astronomers map the largest structures in the universe.</p>
+              <div class="card-meta">
+                <span class="author">By Dr. Sophia Kim</span>
+                <span class="date">March 25, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('gamma-ray')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="discovery" id="mars-volcanic">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1614313913007-2b4ae8ce32d6?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Discovery</div>
+            </div>
+            <div class="card-content">
+              <h3>New Photos of Volcanic Terrain on Mars</h3>
+              <p>Mars Reconnaissance Orbiter has captured stunning new images of volcanic terrain on Mars, providing insights into the planet's geological history.</p>
+              <div class="card-meta">
+                <span class="author">By Robert Davis</span>
+                <span class="date">March 22, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('mars-volcanic')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="science" id="lyrid-meteor">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Science</div>
+            </div>
+            <div class="card-content">
+              <h3>The Lyrid Meteor Shower: Viewing Tips and Science</h3>
+              <p>The annual Lyrid meteor shower is approaching. Learn viewing tips and the fascinating science behind this celestial event.</p>
+              <div class="card-meta">
+                <span class="author">By Lisa Martinez</span>
+                <span class="date">March 20, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('lyrid-meteor')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="science" id="ai-solar">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1532166219874-3a920e142bbc?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Science</div>
+            </div>
+            <div class="card-content">
+              <h3>How AI is Revolutionizing Solar Research</h3>
+              <p>Artificial intelligence is transforming solar research, helping scientists better understand and predict solar activity.</p>
+              <div class="card-meta">
+                <span class="author">By Dr. Alan Zhang</span>
+                <span class="date">March 18, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('ai-solar')">Read Article</button>
+            </div>
+          </div>
+          
+
+          <div class="article-card" data-category="mission" id="astronaut-return">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1630694093867-4b28d0d21f09?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Mission</div>
+            </div>
+            <div class="card-content">
+              <h3>Return of NASA's Oldest Active Astronaut from ISS</h3>
+              <p>NASA's oldest active astronaut has safely returned to Earth after a record-breaking mission aboard the International Space Station.</p>
+              <div class="card-meta">
+                <span class="author">By Jennifer Lewis</span>
+                <span class="date">March 15, 2025</span>
+              </div>
+              <button class="btn primary read-btn" onclick="openArticle('astronaut-return')">Read Article</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div id="articleModal" class="modal">
+      <div class="modal-content article-modal">
+        <span class="close-modal">&times;</span>
+        <div id="articleContent"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Site</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="articles.html">Articles</a></li>
+              <li><a href="games.html">Games</a></li>
+              <li><a href="planets.html">Planet Weight Calculator</a></li>
+              <li><a href="event-calendar.html">Event Calender</a></li>
+
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Games</h4>
+            <ul>
+              <li><a href="games.html#asteroid-defender">Asteroid Defender</a></li>
+              <li><a href="games.html#space-trivia">Space Trivia</a></li>
+              <li><a href="games.html#planet-matcher">Planet Matcher</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Cosmic Explorer by Shaurya Mehta. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

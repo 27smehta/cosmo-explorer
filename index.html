@@ -1,0 +1,175 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="stars2"></div>
+  <div class="stars3"></div>
+
+  <header class="container mx-auto py-8 px-4">
+    <nav class="flex justify-between items-center">
+        <a href="index.html" class="text-2xl font-bold text-blue-300">Cosmic Explorer</a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html" class="active">Home</a></li>
+        <li><a href="articles.html">Articles</a></li>
+        <li><a href="games.html">Games</a></li>
+        <li><a href="planets.html">Planet Weight Calculator</a></li>
+        <li><a href="event-calendar.html">Event Calender</a></li>
+
+
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Explore the <span class="highlight">Universe</span></h1>
+        <p class="hero-text">Discover the latest breakthroughs in space exploration, test your knowledge with interactive quizzes, and engage with space-themed games.</p>
+        <div class="cta-buttons">
+          <a href="articles.html" class="btn primary">Read Articles</a>
+          <a href="games.html" class="btn secondary">Play Games</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured">
+      <div class="container">
+        <h2>Featured Articles</h2>
+        <div class="featured-grid">
+          <div class="article-card" onclick="location.href='articles.html#nasa-quantum'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Science</div>
+            </div>
+            <div class="card-content">
+              <h3>NASA's First Space-Based Quantum Gravity Sensor</h3>
+              <p>NASA has developed the first-ever space-based quantum sensor for gravity measurements, revolutionizing how we study Earth and other planets.</p>
+              <div class="card-meta">
+                <span class="author">By Dr. Sarah Chen</span>
+                <span class="date">April 12, 2025</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-card" onclick="location.href='articles.html#hubble-eagle'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1462331940025-496dfbfc7564?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Discovery</div>
+            </div>
+            <div class="card-content">
+              <h3>Hubble's Breathtaking New Image of Eagle Nebula</h3>
+              <p>The Hubble Space Telescope has captured a stunning new image of the Eagle Nebula, revealing previously unseen details.</p>
+              <div class="card-meta">
+                <span class="author">By Michael Roberts</span>
+                <span class="date">April 8, 2025</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-card" onclick="location.href='articles.html#dark-matter'">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1465101162946-4377e57745c3?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');">
+              <div class="card-tag">Physics</div>
+            </div>
+            <div class="card-content">
+              <h3>Ultralight Dark Matter's Role in Black Hole Formation</h3>
+              <p>New research suggests ultralight dark matter may play a crucial role in the formation and evolution of black holes.</p>
+              <div class="card-meta">
+                <span class="author">By Dr. James Wong</span>
+                <span class="date">April 5, 2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="view-all">
+          <a href="articles.html" class="btn outline">View All Articles</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="game-spotlight">
+      <div class="container">
+        <h2>Featured Games</h2>
+        <div class="game-cards">
+          <div class="game-card" onclick="location.href='games.html#asteroid-defender'">
+            <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');"></div>
+            <div class="game-content">
+              <h3>Asteroid Defender</h3>
+              <p>Protect Earth from incoming asteroids in this arcade-style space shooter.</p>
+              <a href="games.html#asteroid-defender" class="btn primary">Play Now</a>
+            </div>
+          </div>
+          <div class="game-card" onclick="location.href='games.html#space-trivia'">
+            <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1454789548928-9efd52dc4031?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');"></div>
+            <div class="game-content">
+              <h3>Space Trivia Challenge</h3>
+              <p>Test your knowledge of space with this fast-paced trivia game.</p>
+              <a href="games.html#space-trivia" class="btn primary">Play Now</a>
+            </div>
+          </div>
+          <div class="game-card" onclick="location.href='games.html#planet-matcher'">
+            <div class="game-img" style="background-image: url('https://images.unsplash.com/photo-1614732414444-096e5f1122d5?ixlib=rb-1.2.1&auto=format&fit=crop&q=80&w=1169&h=600');"></div>
+            <div class="game-content">
+              <h3>Planet Matcher</h3>
+              <p>Match pairs of planets and space objects in this memory game.</p>
+              <a href="games.html#planet-matcher" class="btn primary">Play Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about">
+      <div class="container">
+        <h2>About Cosmic Explorer</h2>
+        <p>Cosmic Explorer is your gateway to the universe. Stay informed about the latest space discoveries, test your knowledge with our interactive quizzes, and have fun with our space-themed games. Whether you're a seasoned astronomer or just beginning your cosmic journey, there's something here for everyone.</p>
+        <p class="creator">Created by Shaurya Mehta</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col">
+            <h4>Site</h4>
+            <ul>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="articles.html">Articles</a></li>
+              <li><a href="games.html">Games</a></li>
+              <li><a href="planets.html">Planet Weight Calculator</a></li>
+              <li><a href="event-calendar.html">Event Calender</a></li>
+
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h4>Games</h4>
+            <ul>
+              <li><a href="games.html#asteroid-defender">Asteroid Defender</a></li>
+              <li><a href="games.html#space-trivia">Space Trivia</a></li>
+              <li><a href="games.html#planet-matcher">Planet Matcher</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Cosmic Explorer by Shaurya Mehta. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

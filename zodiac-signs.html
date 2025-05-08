@@ -1,0 +1,393 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Economy Simulator - Cosmic Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Zodiac Constellation Fun Facts Component for Cosmic Yearbook -->
+<div id="stars" class="fixed inset-0 pointer-events-none"></div>
+<header class="container mx-auto py-8 px-4">
+    <nav class="navbar">
+        <div class="logo">
+            <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+        </div>
+        <div class="nav-toggle" id="navToggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html" >Home</a></li>
+            <li><a href="articles.html">Articles</a></li>
+            <li><a href="games.html">Games</a></li>
+            <li><a href="planets.html">Planet Weight Calculator</a></li>
+            <li><a href="event-calendar.html">Event Calender</a></li>
+            <li><a href="zodiac-signs.html" class="active">Zodiac Constellation</a></li>
+        </ul>
+    </nav>
+</header>
+<main class="container mx-auto py-8 px-4">
+    <section class="page-header">
+        <div class="container">
+            <h1>Zodiac <span class="highlight">Constellation</span></h1>
+            <p>Unlock Your Cosmic Blueprint with the Wisdom of Your Zodiac Constellation !</p>
+        </div>
+    </section>
+<section id="zodiac-constellation-facts" class="cosmic-card">
+  <h2>🔭 Zodiac Constellation Fun Facts</h2>
+  <form id="zodiacForm" autocomplete="off">
+    <label for="birthdate" class="cosmic-label">Enter your birthdate:</label>
+    <input type="date" id="birthdate" class="cosmic-input" required>
+    <button type="submit" class="cosmic-btn">Show My Constellation</button>
+  </form>
+  <div id="zodiacResult" class="zodiac-result" style="display:none;">
+    <div class="zodiac-header">
+      <span id="zodiacIcon" class="zodiac-icon"></span>
+      <div>
+        <h3 id="zodiacName"></h3>
+        <p id="zodiacDates"></p>
+      </div>
+    </div>
+    <ul id="zodiacFacts" class="zodiac-facts"></ul>
+  </div>
+</section>
+<footer>
+  <div class="container">
+      <div class="footer-content">
+          <div class="footer-logo">
+              <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+          </div>
+          <div class="footer-links">
+              <div class="footer-col">
+                  <h4>Site</h4>
+                  <ul>
+                      <li><a href="index.html">Home</a></li>
+                      <li><a href="articles.html">Articles</a></li>
+                      <li><a href="games.html">Games</a></li>
+                      <li><a href="planets.html">Planet Weight Calculator</a></li>
+                      <li><a href="event-calendar.html">Event Calender</a></li>
+                      <li><a href="zodiac-signs.html">Zodiac Constellation</a></li>
+
+                  </ul>
+              </div>
+              <div class="footer-col">
+                  <h4>Games</h4>
+                  <ul>
+                      <li><a href="games.html#asteroid-defender">Asteroid Defender</a></li>
+                      <li><a href="games.html#space-trivia">Space Trivia</a></li>
+                      <li><a href="games.html#planet-matcher">Planet Matcher</a></li>
+                      <li><a href="games.html#event-calender">Event Calender</a></li>
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="footer-bottom">
+          <p>&copy; 2025 Cosmic Explorer by Shaurya Mehta. All rights reserved.</p>
+      </div>
+  </div>
+</footer>
+
+<style>
+.cosmic-card {
+  background: linear-gradient(135deg, #181c2f 70%, #232b4b 100%);
+  border-radius: 1.3rem;
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.28);
+  padding: 2rem 1.2rem;
+  max-width: 440px;
+  margin: 2rem auto;
+  color: #e3e9f7;
+  font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
+}
+.cosmic-label {
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+  display: block;
+  color: #a2b6f9;
+}
+.cosmic-input {
+  background: #232b4b;
+  border: 1px solid #39416a;
+  border-radius: 0.4rem;
+  color: #e3e9f7;
+  padding: 0.5rem 0.8rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+.cosmic-btn {
+  background: linear-gradient(90deg, #7e6fff 60%, #00c9ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.6rem 1.3rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.5rem;
+  box-shadow: 0 1px 8px 0 rgba(0,0,0,0.12);
+}
+.cosmic-btn:hover {
+  background: linear-gradient(90deg, #00c9ff 40%, #7e6fff 100%);
+}
+.zodiac-result {
+  margin-top: 2rem;
+  background: rgba(34, 41, 68, 0.92);
+  border-radius: 1rem;
+  padding: 1.2rem 1rem 1.2rem 1.2rem;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.14);
+  animation: fadeIn 0.7s;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px);}
+  to { opacity: 1; transform: translateY(0);}
+}
+.zodiac-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.zodiac-icon {
+  font-size: 2.8rem;
+  min-width: 2.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.zodiac-facts {
+  list-style: disc inside;
+  color: #b6d0ff;
+  font-size: 1.06rem;
+  margin: 0.7rem 0 0 0;
+  padding-left: 1.1rem;
+}
+@media (max-width: 600px) {
+  .cosmic-card { padding: 1.1rem 0.4rem; }
+  .zodiac-header { flex-direction: column; align-items: flex-start; gap: 0.2rem;}
+  .zodiac-icon { font-size: 2.2rem; }
+}
+</style>
+
+<script>
+const zodiacData = [
+  {
+    name: "Aries",
+    icon: "♈️",
+    dates: "March 21 – April 20",
+    facts: [
+      "Aries is symbolized by the Ram and is the first sign of the zodiac.",
+      "The Aries constellation contains several bright stars, including Hamal.",
+      "In Greek mythology, Aries represents the ram with the Golden Fleece.",
+      "Best seen in the night sky during April.",
+      "Aries is a relatively small constellation, but easy to spot in the Northern Hemisphere."
+    ]
+  },
+  {
+    name: "Taurus",
+    icon: "♉️",
+    dates: "April 21 – May 21",
+    facts: [
+      "Taurus is symbolized by the Bull and is famous for the bright star Aldebaran.",
+      "The Pleiades (Seven Sisters) and Hyades star clusters are found in Taurus.",
+      "In mythology, Taurus represents Zeus disguised as a bull.",
+      "Taurus is best seen in the evening sky in January.",
+      "It is one of the oldest known constellations, dating back to the Bronze Age."
+    ]
+  },
+  {
+    name: "Gemini",
+    icon: "♊️",
+    dates: "May 22 – June 21",
+    facts: [
+      "Gemini is symbolized by the Twins, Castor and Pollux.",
+      "The two brightest stars, Castor and Pollux, represent the heads of the twins.",
+      "The constellation is home to several notable deep-sky objects, including the Eskimo Nebula.",
+      "Gemini is best visible in February.",
+      "It lies between Taurus and Cancer in the sky."
+    ]
+  },
+  {
+    name: "Cancer",
+    icon: "♋️",
+    dates: "June 22 – July 22",
+    facts: [
+      "Cancer is symbolized by the Crab and is a faint constellation.",
+      "It contains the Beehive Cluster (M44), visible to the naked eye.",
+      "In mythology, Cancer was sent by Hera to distract Hercules.",
+      "Cancer is best seen in March evenings.",
+      "Its main stars form an upside-down Y shape."
+    ]
+  },
+  {
+    name: "Leo",
+    icon: "♌️",
+    dates: "July 23 – August 23",
+    facts: [
+      "Leo is symbolized by the Lion and is one of the most recognizable constellations.",
+      "Regulus, its brightest star, marks the Lion's heart.",
+      "The Sickle asterism outlines Leo’s head and mane.",
+      "Leo is best seen in April.",
+      "It contains several galaxies, including the Leo Triplet."
+    ]
+  },
+  {
+    name: "Virgo",
+    icon: "♍️",
+    dates: "August 24 – September 23",
+    facts: [
+      "Virgo is the largest zodiac constellation and the second largest in the sky.",
+      "Spica, its brightest star, marks the base of the Y-shaped asterism.",
+      "Virgo is associated with the goddess of wheat and agriculture.",
+      "The Virgo Cluster of galaxies lies within its boundaries.",
+      "Best seen in May evenings."
+    ]
+  },
+  {
+    name: "Libra",
+    icon: "♎️",
+    dates: "September 24 – October 23",
+    facts: [
+      "Libra is symbolized by the Scales, representing balance and justice.",
+      "It is the only zodiac constellation representing an inanimate object.",
+      "Libra’s brightest stars, Zubeneschamali and Zubenelgenubi, mean 'the northern and southern claw' in Arabic.",
+      "Libra was once considered part of Scorpius in ancient times.",
+      "Best seen in June evenings."
+    ]
+  },
+  {
+    name: "Scorpius",
+    icon: "♏️",
+    dates: "October 24 – November 22",
+    facts: [
+      "Scorpius is symbolized by the Scorpion and is easy to spot due to its curved 'fish hook' shape.",
+      "Antares, its brightest star, is a red supergiant often called the 'heart of the scorpion.'",
+      "The constellation is rich in star clusters and nebulae.",
+      "Scorpius is best seen in July.",
+      "It lies close to the center of the Milky Way."
+    ]
+  },
+  {
+    name: "Sagittarius",
+    icon: "♐️",
+    dates: "November 23 – December 21",
+    facts: [
+      "Sagittarius is symbolized by the Archer, a centaur with a bow.",
+      "Its 'teapot' asterism is easy to spot in the summer sky.",
+      "The center of our galaxy, the Milky Way, lies in Sagittarius.",
+      "It contains many nebulae, including the Lagoon and Trifid Nebula.",
+      "Best seen in August."
+    ]
+  },
+  {
+    name: "Capricornus",
+    icon: "♑️",
+    dates: "December 22 – January 20",
+    facts: [
+      "Capricornus is symbolized by the Sea Goat, a creature that's half goat, half fish.",
+      "It is one of the faintest zodiac constellations.",
+      "Capricornus was associated with the god Pan in Greek mythology.",
+      "Best seen in September.",
+      "Its stars form a distinctive triangle shape."
+    ]
+  },
+  {
+    name: "Aquarius",
+    icon: "♒️",
+    dates: "January 21 – February 19",
+    facts: [
+      "Aquarius is symbolized by the Water Bearer.",
+      "It is the second largest zodiac constellation.",
+      "Aquarius is associated with Ganymede, cupbearer to the gods in Greek myth.",
+      "Best seen in October.",
+      "It contains several planetary nebulae."
+    ]
+  },
+  {
+    name: "Pisces",
+    icon: "♓️",
+    dates: "February 20 – March 20",
+    facts: [
+      "Pisces is symbolized by two fish tied together by their tails.",
+      "It is a large but faint constellation.",
+      "Pisces is associated with the Greek myth of Aphrodite and Eros transforming into fish.",
+      "Best seen in November.",
+      "The Vernal Equinox point is currently in Pisces."
+    ]
+  }
+];
+
+// Helper to get zodiac sign from date
+function getZodiac(month, day) {
+  const zodiacRanges = [
+    [3, 21, 4, 20],   // Aries
+    [4, 21, 5, 21],   // Taurus
+    [5, 22, 6, 21],   // Gemini
+    [6, 22, 7, 22],   // Cancer
+    [7, 23, 8, 23],   // Leo
+    [8, 24, 9, 23],   // Virgo
+    [9, 24, 10, 23],  // Libra
+    [10, 24, 11, 22], // Scorpius
+    [11, 23, 12, 21], // Sagittarius
+    [12, 22, 1, 20],  // Capricornus
+    [1, 21, 2, 19],   // Aquarius
+    [2, 20, 3, 20]    // Pisces
+  ];
+  for (let i = 0; i < zodiacRanges.length; i++) {
+    let [startM, startD, endM, endD] = zodiacRanges[i];
+    if (
+      (month === startM && day >= startD) ||
+      (month === endM && day <= endD) ||
+      (startM > endM && ((month === startM && day >= startD) || (month === endM && day <= endD)))
+    ) {
+      return i;
+    }
+  }
+  return 0; // fallback to Aries
+}
+
+document.getElementById('zodiacForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const birthVal = document.getElementById('birthdate').value;
+  if (!birthVal) return;
+  const [year, month, day] = birthVal.split('-').map(Number);
+  const idx = getZodiac(month, day);
+  const z = zodiacData[idx];
+  document.getElementById('zodiacIcon').textContent = z.icon;
+  document.getElementById('zodiacName').textContent = z.name;
+  document.getElementById('zodiacDates').textContent = z.dates;
+  document.getElementById('zodiacFacts').innerHTML = z.facts.map(f => `<li>${f}</li>`).join('');
+  document.getElementById('zodiacResult').style.display = 'block';
+});
+</script>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Astronomy Event Calendar | Cosmic Explorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="stars" class="fixed inset-0 pointer-events-none"></div>
+    <header class="container mx-auto py-8 px-4">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html" >Home</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="games.html">Games</a></li>
+                <li><a href="planets.html">Planet Weight Calculator</a></li>
+                <li><a href="event-calendar.html" class="active">Event Calender</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main class="container mx-auto py-8 px-4">
+        <section class="page-header">
+            <div class="container">
+                <h1>Astronomy <span class="highlight">Event Calender</span></h1>
+                <p>Discover upcoming celestial events, meteor showers, eclipses, and more !</p>
+            </div>
+        </section>
+        <section class="mb-12">
+            <div class="glass p-6 rounded-lg bg-blue-900/30 backdrop-blur-sm border border-blue-700/50">
+                <h2 class="text-2xl font-bold mb-4 text-blue-300">Featured Events This Month</h2>
+                <div id="featured-events" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="text-center text-gray-400">Loading featured events...</div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="glass p-6 rounded-lg bg-blue-900/30 backdrop-blur-sm border border-blue-700/50 mb-6">
+                <div class="flex flex-wrap justify-between items-center mb-4">
+                    <h2 class="text-2xl font-bold text-blue-300">Calendar</h2>
+                    <div class="month-nav">
+                        <button id="prev-month" class="text-sm">&larr; Previous Month</button>
+                        <h3 id="current-month" class="text-xl font-bold mx-4">May 2025</h3>
+                        <button id="next-month" class="text-sm">Next Month &rarr;</button>
+                    </div>
+                </div>
+                <div class="mb-6">
+                    <h4 class="text-sm text-gray-400 mb-2">Filter by event type:</h4>
+                    <div class="flex flex-wrap gap-2">
+                        <button class="filter-btn filter-btn-all active" data-filter="all">All Events</button>
+                        <button class="filter-btn filter-btn-meteor" data-filter="meteor">Meteor Showers</button>
+                        <button class="filter-btn filter-btn-eclipse" data-filter="eclipse">Eclipses</button>
+                        <button class="filter-btn filter-btn-moon" data-filter="moon">Moon Phases</button>
+                        <button class="filter-btn filter-btn-planet" data-filter="planet">Planetary Events</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-7 gap-1 mb-2 text-center">
+                    <div class="font-bold">Sun</div>
+                    <div class="font-bold">Mon</div>
+                    <div class="font-bold">Tue</div>
+                    <div class="font-bold">Wed</div>
+                    <div class="font-bold">Thu</div>
+                    <div class="font-bold">Fri</div>
+                    <div class="font-bold">Sat</div>
+                </div>
+                <div id="calendar-grid" class="grid grid-cols-7 gap-1">
+                    <div class="text-center p-10">Loading calendar...</div>
+                </div>
+            </div>
+        </section>
+        <section class="mt-12">
+            <div class="glass p-6 rounded-lg bg-blue-900/30 backdrop-blur-sm border border-blue-700/50">
+                <h2 class="text-2xl font-bold mb-4 text-blue-300">Upcoming Events</h2>
+                <div id="events-list" class="space-y-2">
+                    <div class="text-center text-gray-400 p-4">Loading events...</div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Event Detail Modal -->
+    <div id="event-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="event-detail">
+                <!-- Event details will be displayed here -->
+            </div>
+        </div>
+    </div>
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Site</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="games.html">Games</a></li>
+                            <li><a href="planets.html">Planet Weight Calculator</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Games</h4>
+                        <ul>
+                            <li><a href="games.html#asteroid-defender">Asteroid Defender</a></li>
+                            <li><a href="games.html#space-trivia">Space Trivia</a></li>
+                            <li><a href="games.html#planet-matcher">Planet Matcher</a></li>
+                            <li><a href="games.html#event-calender">Event Calender</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cosmic Explorer by Shaurya Mehta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script>
+    // --- Event Images (reliable Wikimedia links) ---
+    const eventImages = {
+        "new-moon": "https://cdn.shopify.com/s/files/1/1578/8029/files/dark_moon_jpeg_480x480.jpg?v=1690574122",
+        "first-quarter": "https://www.miguelclaro.com/wp/wp-content/uploads/2014/03/TheMoonQuarterM-Vertica-net.jpg",
+        "last-quarter": "https://cdn.mos.cms.futurecdn.net/kSLDiUpiW4PachuSDmC7NM.jpg",
+        "full-moon": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/320px-FullMoon2010.jpg",
+        "eclipse-lunar": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Lunar_eclipse_04-15-2014_by_R_Jay_GaBany.jpg/1200px-Lunar_eclipse_04-15-2014_by_R_Jay_GaBany.jpg",
+        "eclipse-solar": "https://vaonis.com/cdn/shop/articles/partial_eclipse_f903582f-b789-40ff-b978-2ea6b24d7c7b.jpg?v=1743521734",
+        "meteor": "https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80",
+        "mars": "https://upload.wikimedia.org/wikipedia/commons/0/02/OSIRIS_Mars_true_color.jpg",
+        "jupiter": "https://upload.wikimedia.org/wikipedia/commons/e/e2/Jupiter.jpg",
+        "saturn": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Saturn_during_Equinox.jpg",
+        "venus": "https://upload.wikimedia.org/wikipedia/commons/e/e5/Venus-real_color.jpg",
+        "mercury": "https://upload.wikimedia.org/wikipedia/commons/4/4a/Mercury_in_true_color.jpg"
+    };
+
+    // --- Calendar State ---
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth();
+    let currentYear = currentDate.getFullYear();
+    let activeFilter = 'all';
+    let astronomyEvents = [];
+
+    // --- DOM Elements ---
+    const calendarGrid = document.getElementById('calendar-grid');
+    const currentMonthElement = document.getElementById('current-month');
+    const featuredEventsContainer = document.getElementById('featured-events');
+    const eventsListContainer = document.getElementById('events-list');
+    const eventModal = document.getElementById('event-modal');
+    const eventDetail = document.getElementById('event-detail');
+    const closeModalBtn = document.querySelector('.close-modal');
+    const prevMonthBtn = document.getElementById('prev-month');
+    const nextMonthBtn = document.getElementById('next-month');
+    const filterButtons = document.querySelectorAll('.filter-btn');
+
+    // --- Initialization ---
+    function init() {
+        createStars();
+        // If you want to use an API, replace with loadAstronomyEvents();
+        loadFallbackData();
+        setupEventListeners();
+    }
+
+    // --- Twinkling stars ---
+    function createStars() {
+        const starsContainer = document.getElementById('stars');
+        const numberOfStars = 200;
+        for (let i = 0; i < numberOfStars; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const x = Math.floor(Math.random() * window.innerWidth);
+            const y = Math.floor(Math.random() * window.innerHeight);
+            const size = Math.random() * 2.5;
+            const delay = Math.random() * 4;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.left = `${x}px`;
+            star.style.top = `${y}px`;
+            star.style.position = 'absolute';
+            star.style.background = '#fff';
+            star.style.borderRadius = '50%';
+            star.style.opacity = 0.8;
+            star.style.animation = 'twinkle 2s infinite';
+            star.style.animationDelay = `${delay}s`;
+            starsContainer.appendChild(star);
+        }
+    }
+
+    // --- Event Listeners ---
+    function setupEventListeners() {
+        prevMonthBtn.addEventListener('click', () => navigateMonth(-1));
+        nextMonthBtn.addEventListener('click', () => navigateMonth(1));
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                activeFilter = button.dataset.filter;
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                renderCalendar(currentMonth, currentYear);
+                renderEventsList();
+            });
+        });
+        closeModalBtn.addEventListener('click', () => eventModal.style.display = 'none');
+        window.addEventListener('click', (event) => {
+            if (event.target === eventModal) eventModal.style.display = 'none';
+        });
+    }
+
+    // --- Month navigation ---
+    function navigateMonth(direction) {
+        currentMonth += direction;
+        if (currentMonth < 0) {
+            currentMonth = 11;
+            currentYear--;
+        } else if (currentMonth > 11) {
+            currentMonth = 0;
+            currentYear++;
+        }
+        renderCalendar(currentMonth, currentYear);
+        renderFeaturedEvents();
+    }
+
+    // --- Static Events with Images ---
+    function loadFallbackData() {
+        astronomyEvents = [
+            // Moon Phases
+            {
+                id: "new-moon-2025-05-01",
+                type: "moon",
+                title: "New Moon",
+                date: "2025-05-01",
+                description: "The Moon is not visible from Earth.",
+                image: eventImages["new-moon"]
+            },
+            {
+                id: "first-quarter-2025-05-08",
+                type: "moon",
+                title: "First Quarter Moon",
+                date: "2025-05-08",
+                description: "The right half of the Moon is illuminated.",
+                image: eventImages["first-quarter"]
+            },
+            {
+                id: "full-moon-2025-05-15",
+                type: "moon",
+                title: "Full Moon",
+                date: "2025-05-15",
+                description: "The Moon is fully illuminated as seen from Earth.",
+                image: eventImages["full-moon"]
+            },
+            {
+                id: "last-quarter-2025-05-22",
+                type: "moon",
+                title: "Last Quarter Moon",
+                date: "2025-05-22",
+                description: "The left half of the Moon is illuminated.",
+                image: eventImages["last-quarter"]
+            },
+            // Meteor Shower
+            {
+                id: "meteor-eta-aquariids-2025-05-06",
+                type: "meteor",
+                title: "Eta Aquariids Meteor Shower Peak",
+                date: "2025-05-06",
+                description: "Peak night for the Eta Aquariids, best viewed after midnight.",
+                image: eventImages["meteor"]
+            },
+            // Eclipses
+            {
+                id: "eclipse-lunar-2025-05-26",
+                type: "eclipse",
+                title: "Total Lunar Eclipse",
+                date: "2025-05-26",
+                description: "A total lunar eclipse will be visible from many regions.",
+                image: eventImages["eclipse-lunar"]
+            },
+            {
+                id: "eclipse-solar-2025-05-10",
+                type: "eclipse",
+                title: "Partial Solar Eclipse",
+                date: "2025-05-10",
+                description: "A partial solar eclipse will be visible from select regions.",
+                image: eventImages["eclipse-solar"]
+            },
+            // Planetary Events
+            {
+                id: "mars-opposition-2025-05-22",
+                type: "planet",
+                title: "Mars at Opposition",
+                date: "2025-05-22",
+                description: "Mars is at its closest approach to Earth and fully illuminated by the Sun.",
+                image: eventImages["mars"]
+            },
+            {
+                id: "jupiter-opposition-2025-05-29",
+                type: "planet",
+                title: "Jupiter at Opposition",
+                date: "2025-05-29",
+                description: "Jupiter is at its brightest and closest to Earth.",
+                image: eventImages["jupiter"]
+            },
+            {
+                id: "saturn-opposition-2025-05-31",
+                type: "planet",
+                title: "Saturn at Opposition",
+                date: "2025-05-31",
+                description: "Saturn is at its brightest and closest to Earth.",
+                image: eventImages["saturn"]
+            },
+            {
+                id: "venus-brightest-2025-05-17",
+                type: "planet",
+                title: "Venus at Brightest",
+                date: "2025-05-17",
+                description: "Venus shines at its brightest in the evening sky.",
+                image: eventImages["venus"]
+            },
+            {
+                id: "mercury-morning-2025-05-10",
+                type: "planet",
+                title: "Mercury Visible in Morning",
+                date: "2025-05-10",
+                description: "Mercury is visible in the morning sky just before sunrise.",
+                image: eventImages["mercury"]
+            }
+        ];
+        astronomyEvents.sort((a, b) => new Date(a.date) - new Date(b.date));
+        renderCalendar(currentMonth, currentYear);
+        renderFeaturedEvents();
+        renderEventsList();
+    }
+
+    // --- Render Calendar Grid ---
+    function renderCalendar(month, year) {
+        currentMonthElement.textContent = `${new Date(year, month).toLocaleString('default', { month: 'long', year: 'numeric' })}`;
+        const firstDay = new Date(year, month, 1);
+        const startDay = firstDay.getDay();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const monthEvents = astronomyEvents.filter(ev => {
+            const evDate = new Date(ev.date);
+            return evDate.getMonth() === month && evDate.getFullYear() === year && (activeFilter === 'all' || ev.type === activeFilter);
+        });
+
+        let gridHTML = '';
+        // Empty cells for days before the 1st
+        for (let i = 0; i < startDay; i++) {
+            gridHTML += `<div class="p-2"></div>`;
+        }
+        // Days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            const eventsToday = monthEvents.filter(ev => ev.date === dateStr);
+            gridHTML += `<div class="p-2 border border-blue-700/30 rounded relative hover:bg-blue-800/30 cursor-pointer" data-date="${dateStr}">
+                <div class="font-semibold">${day}</div>
+                ${eventsToday.map(ev => `<div class="mt-1 w-3 h-3 inline-block rounded-full" style="background:${getEventColor(ev.type)};" title="${ev.title}"></div>`).join('')}
+            </div>`;
+        }
+        // Fill out the last row to 7 columns
+        let totalCells = startDay + daysInMonth;
+        let trailing = (7 - (totalCells % 7)) % 7;
+        for (let i = 0; i < trailing; i++) {
+            gridHTML += `<div class="p-2"></div>`;
+        }
+        calendarGrid.innerHTML = gridHTML;
+
+        // Add click listeners for days with events
+        document.querySelectorAll('#calendar-grid > div[data-date]').forEach(cell => {
+            cell.addEventListener('click', function() {
+                const date = this.getAttribute('data-date');
+                const events = monthEvents.filter(ev => ev.date === date);
+                if (events.length > 0) {
+                    showEventModal(events);
+                }
+            });
+        });
+    }
+
+    function getEventColor(type) {
+        switch (type) {
+            case 'moon': return '#a0aec0';
+            case 'meteor': return '#fbbf24';
+            case 'eclipse': return '#f87171';
+            case 'planet': return '#60a5fa';
+            default: return '#fff';
+        }
+    }
+
+    // --- Featured Events ---
+    function renderFeaturedEvents() {
+        const now = new Date(currentYear, currentMonth);
+        const thisMonth = now.getMonth();
+        const thisYear = now.getFullYear();
+        const featured = astronomyEvents.filter(ev => {
+            const evDate = new Date(ev.date);
+            return evDate.getMonth() === thisMonth && evDate.getFullYear() === thisYear;
+        }).slice(0, 3);
+
+        if (featured.length === 0) {
+            featuredEventsContainer.innerHTML = `<div class="text-center text-gray-400">No featured events this month.</div>`;
+            return;
+        }
+        featuredEventsContainer.innerHTML = featured.map(ev => `
+            <div class="glass p-4 rounded-lg bg-blue-900/50 border border-blue-700/30 cursor-pointer hover:bg-blue-800/40" onclick="showEventModal([astronomyEvents.find(e => e.id === '${ev.id}')])">
+                <img src="${ev.image}" alt="${ev.title}" class="w-full h-32 object-cover rounded mb-2">
+                <div class="text-lg font-bold text-blue-200">${ev.title}</div>
+                <div class="text-sm text-gray-300 mb-1">${ev.date}</div>
+                <div class="text-gray-400 text-sm">${ev.description}</div>
+            </div>
+        `).join('');
+    }
+
+    // --- Events List ---
+    function renderEventsList() {
+        const now = new Date();
+        const upcoming = astronomyEvents.filter(ev => {
+            return (activeFilter === 'all' || ev.type === activeFilter) && new Date(ev.date) >= now;
+        }).slice(0, 10);
+
+        if (upcoming.length === 0) {
+            eventsListContainer.innerHTML = `<div class="text-center text-gray-400 p-4">No upcoming events.</div>`;
+            return;
+        }
+        eventsListContainer.innerHTML = upcoming.map(ev => `
+            <div class="flex items-center gap-4 p-2 rounded hover:bg-blue-800/30 cursor-pointer" onclick="showEventModal([astronomyEvents.find(e => e.id === '${ev.id}')])">
+                <img src="${ev.image}" alt="${ev.title}" class="w-12 h-12 object-cover rounded">
+                <div>
+                    <div class="font-bold text-blue-200">${ev.title}</div>
+                    <div class="text-gray-300 text-sm">${ev.date}</div>
+                    <div class="text-gray-400 text-xs">${ev.description}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // --- Modal ---
+    function showEventModal(events) {
+        if (!Array.isArray(events)) events = [events];
+        eventDetail.innerHTML = events.map(ev => `
+            <div class="mb-4">
+                <img src="${ev.image}" alt="${ev.title}" class="w-full h-40 object-cover rounded mb-2">
+                <h3 class="text-xl font-bold text-blue-200">${ev.title}</h3>
+                <div class="text-gray-300 mb-1">${ev.date}</div>
+                <div class="text-gray-400 mb-2">${ev.description}</div>
+            </div>
+        `).join('');
+        eventModal.style.display = 'block';
+    }
+
+    // --- Run ---
+    window.showEventModal = showEventModal; // Expose for inline onclick
+    window.onload = init;
+    </script>
+    <style>
+    /* Minimal star animation for demo */
+    @keyframes twinkle {
+        0%, 100% { opacity: 0.8; }
+        50% { opacity: 0.2; }
+    }
+    .star {
+        position: absolute;
+        background: #fff;
+        border-radius: 50%;
+        opacity: 0.8;
+        pointer-events: none;
+    }
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0; top: 0; width: 100vw; height: 100vh;
+        background: rgba(0,0,0,0.7);
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-content {
+        background: #1e293b;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 400px;
+        position: relative;
+    }
+    .close-modal {
+        position: absolute;
+        right: 16px;
+        top: 12px;
+        font-size: 2rem;
+        color: #fff;
+        cursor: pointer;
+    }
+    </style>
+</body>
+</html>
+
+
+
+
+
+
+
+

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet Weight Calculator | Cosmic Explorer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="stars" class="fixed inset-0 pointer-events-none"></div>
+    
+    <header class="container mx-auto py-8 px-4">
+        <nav class="navbar">
+            <div class="logo">
+                <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+            </div>
+            <div class="nav-toggle" id="navToggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="articles.html">Articles</a></li>
+                <li><a href="games.html">Games</a></li>
+                <li><a href="planets.html" class="active">Planet Weight Calculator</a></li>
+                <li><a href="event-calendar.html">Event Calendar</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Planet <span class="highlight">Weight Calculator</span></h1>
+                <p class="hero-text">Discover how much you would weigh on different planets in our solar system!</p>
+            </div>
+        </section>
+        
+        <section class="max-w-xl mx-auto bg-blue-900/30 backdrop-blur-sm p-8 rounded-lg border border-blue-700/50 mb-12">
+            <div class="mb-6">
+                <label for="weight" class="block text-lg mb-2">Your Weight:</label>
+                <div class="flex space-x-4">
+                    <input type="number" id="weight" class="w-full p-3 bg-blue-800/50 border border-blue-600 rounded-lg text-black" placeholder="Enter your weight...">
+                    <select id="weightUnit" class="p-3 bg-blue-800/50 border border-blue-600 rounded-lg text-black">
+                        <option value="kg">kg</option>
+                        <option value="lb">lb</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button id="calculate-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-all">
+                Calculate My Weight
+            </button>
+        </section>
+        
+        <section id="results" class="hidden">
+            <h2 class="text-2xl font-bold mb-6 text-center text-blue-300">Your Weight Across the Solar System</h2>
+            <div id="results-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        </section>
+        
+        <section class="mt-16">
+            <h2 class="text-2xl font-bold mb-6 text-center text-blue-300">How It Works</h2>
+            <div class="bg-blue-900/30 backdrop-blur-sm p-6 rounded-lg border border-blue-700/50">
+                <p class="mb-4">Your weight is actually the force of gravity pulling on your mass. Different planets have different masses and sizes, which means they have different gravitational pulls.</p>
+                <p class="mb-4">The formula used to calculate your weight on different planets is:</p>
+                <div class="bg-blue-800/50 p-4 rounded text-center mb-4">
+                    <p class="font-mono">Weight on Planet = Weight on Earth x (Planet's Gravity / Earth's Gravity)</p>
+                </div>
+                <p>For example, if you weigh 70kg on Earth, you would weigh only about 26.6kg on Mars because Mars has approximately 38% of Earth's gravity.</p>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-text">COSMIC<span class="accent">EXPLORER</span></span>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-col">
+                        <h4>Site</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="articles.html">Articles</a></li>
+                            <li><a href="games.html">Games</a></li>
+                            <li><a href="planets.html">Planet Weight Calculator</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-col">
+                        <h4>Games</h4>
+                        <ul>
+                            <li><a href="games.html#asteroid-defender">Asteroid Defender</a></li>
+                            <li><a href="games.html#space-trivia">Space Trivia</a></li>
+                            <li><a href="games.html#planet-matcher">Planet Matcher</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Cosmic Explorer by Shaurya Mehta. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        const planets = [
+            { id: "mercury", name: "Mercury", gravity: 0.38, image: "https://cdn.pixabay.com/photo/2013/07/12/18/36/mercury-153570_1280.png", color: "bg-gray-600" },
+            { id: "venus", name: "Venus", gravity: 0.91, image: "https://cdn.pixabay.com/photo/2011/12/13/14/39/venus-11022_1280.jpg", color: "bg-yellow-800" },
+            { id: "earth", name: "Earth", gravity: 1.00, image: "https://cdn.pixabay.com/photo/2011/12/13/14/31/earth-11015_1280.jpg", color: "bg-blue-600" },
+            { id: "moon", name: "Moon", gravity: 0.166, image: "https://cdn.pixabay.com/photo/2016/12/10/19/38/moon-1898047_1280.png", color: "bg-gray-400" },
+            { id: "mars", name: "Mars", gravity: 0.38, image: "https://cdn.pixabay.com/photo/2011/12/13/14/30/mars-11012_1280.jpg", color: "bg-red-600" },
+            { id: "jupiter", name: "Jupiter", gravity: 2.34, image: "https://cdn.pixabay.com/photo/2012/04/05/00/56/jupiter-25468_1280.png", color: "bg-yellow-600" },
+            { id: "saturn", name: "Saturn", gravity: 0.93, image: "https://cdn.pixabay.com/photo/2013/07/12/14/29/saturn-148300_1280.png", color: "bg-yellow-400" },
+            { id: "uranus", name: "Uranus", gravity: 0.92, image: "https://cdn.pixabay.com/photo/2013/07/12/18/36/uranus-153572_1280.png", color: "bg-teal-400" },
+            { id: "neptune", name: "Neptune", gravity: 1.12, image: "https://cdn.pixabay.com/photo/2023/09/04/17/04/neptune-8233219_1280.png", color: "bg-blue-400" },
+            { id: "pluto", name: "Pluto", gravity: 0.06, image: "https://cdn.pixabay.com/photo/2023/09/06/03/15/pluto-8236209_1280.png", color: "bg-gray-500" }
+        ];
+        
+        function calculateWeights() {
+            const weightInput = document.getElementById('weight');
+            const weightUnitSelect = document.getElementById('weightUnit');
+            const weight = parseFloat(weightInput.value);
+            const weightUnit = weightUnitSelect.value;
+            
+            if (isNaN(weight) || weight <= 0) {
+                alert('Please enter a valid weight');
+                return;
+            }
+            
+            let weightInKg = weight;
+            if (weightUnit === 'lb') {
+                weightInKg = weight * 0.45359237;
+            }
+            
+            const resultsSection = document.getElementById('results');
+            const resultsContainer = document.getElementById('results-grid');
+            resultsContainer.innerHTML = '';
+            
+            planets.forEach(planet => {
+                const planetWeight = weightInKg * planet.gravity;
+                let displayWeight = planetWeight;
+                
+                if (weightUnit === 'lb') {
+                    displayWeight = planetWeight * 2.20462262; 
+                }
+                
+                const planetCard = document.createElement('div');
+                planetCard.classList.add('planet-card', 'rounded-lg', 'p-6', 'text-center');
+                planetCard.id = planet.id;
+                
+                planetCard.innerHTML = `
+                    <div class="mb-4">
+                        <img src="${planet.image}" alt="${planet.name}" class="planet-img mx-auto" style="max-height:80px;max-width:80px;">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">${planet.name}</h3>
+                    <div class="result">
+                        <p class="text-lg font-semibold text-blue-300">${displayWeight.toFixed(2)} ${weightUnit}</p>
+                        <p class="text-sm text-gray-400">${planet.gravity}× Earth's gravity</p>
+                    </div>
+                `;
+                
+                resultsContainer.appendChild(planetCard);
+            });
+            
+            resultsSection.classList.remove('hidden');
+            
+            resultsSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function createStars() {
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            createStars();
+            document.getElementById('calculate-btn').addEventListener('click', calculateWeights);
+            
+            document.getElementById('weight').addEventListener('keyup', (event) => {
+                if (event.key === 'Enter') {
+                    calculateWeights();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
