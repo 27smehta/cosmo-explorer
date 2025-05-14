@@ -1,3 +1,4 @@
+https://hackatime-badge.hackclub.com/U08Q8UT01SB/cosmo-explorer
 # CosmoExplorer
 
 A space-themed web application that provides various interactive features for space exploration and learning.
