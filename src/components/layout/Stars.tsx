@@ -1,61 +1,32 @@
-
-import { useEffect, useRef } from "react";
-
-interface Star {
-  x: number;
-  y: number;
-  size: number;
-  opacity: number;
-  speed: number;
-}
+import { useEffect, useRef } from 'react';
 
 const Stars = () => {
-  const starsRef = useRef<HTMLDivElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const container = starsRef.current;
-    if (!container) return;
-
-    const starCount = window.innerWidth < 768 ? 50 : 100;
-    const stars: Star[] = [];
-
-    // Clear any existing stars
-    container.innerHTML = "";
-
-    // Create stars
-    for (let i = 0; i < starCount; i++) {
-      const star = document.createElement("div");
-      const size = Math.random() * 2 + 1;
-      const opacity = Math.random() * 0.7 + 0.3;
-      const x = Math.random() * 100;
-      const y = Math.random() * 100;
-      const animationDuration = Math.random() * 3 + 2;
-      const animationDelay = Math.random() * 2;
-
-      star.className = "star";
-      star.style.width = `${size}px`;
-      star.style.height = `${size}px`;
-      star.style.opacity = opacity.toString();
-      star.style.left = `${x}%`;
-      star.style.top = `${y}%`;
-      star.style.animationDuration = `${animationDuration}s`;
-      star.style.animationDelay = `${animationDelay}s`;
-
-      container.appendChild(star);
-      stars.push({ x, y, size, opacity, speed: animationDuration });
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    ctx.clearRect(0, 0, width, height);
+    for (let i = 0; i < 200; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
+      const radius = Math.random() * 1.2;
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = 'white';
+      ctx.globalAlpha = Math.random() * 0.8 + 0.2;
+      ctx.fill();
+      ctx.globalAlpha = 1;
     }
-
-    return () => {
-      container.innerHTML = "";
-    };
   }, []);
 
-  return (
-    <div
-      ref={starsRef}
-      className="fixed top-0 left-0 w-full h-full pointer-events-none z-0"
-    ></div>
-  );
+  return <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-0" />;
 };
 
 export default Stars;
