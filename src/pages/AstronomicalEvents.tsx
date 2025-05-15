@@ -50,7 +50,6 @@ const AstronomicalEvents = () => {
           }
         });
 
-        // Transform API data into our event format
         const transformedEvents = transformApiData(response.data);
         setEvents(transformedEvents);
       } catch (err) {
@@ -65,11 +64,9 @@ const AstronomicalEvents = () => {
   }, []);
 
   const transformApiData = (apiData: any): AstronomicalEvent[] => {
-    // Transform the API response into our event format
     const events: AstronomicalEvent[] = [];
     
     if (apiData.data && apiData.data.positions) {
-      // Process planetary positions
       Object.entries(apiData.data.positions).forEach(([planet, positions]: [string, any]) => {
         if (positions.length > 0) {
           const position = positions[0];
@@ -90,15 +87,56 @@ const AstronomicalEvents = () => {
       });
     }
 
-    // Add known upcoming events
     const knownEvents: AstronomicalEvent[] = [
       {
         id: "1",
-        name: "Lyrid Meteor Shower",
-        date: "2024-04-22",
+        name: "Eta Aquariid Meteor Shower",
+        date: "2025-05-05",
         type: "meteor-shower",
-        description: "The Lyrids are one of the oldest known meteor showers, with records dating back 2,700 years.",
-        visibility: "Best viewed in the Northern Hemisphere after midnight",
+        description: "The Eta Aquariids are best viewed before dawn, especially from the Southern Hemisphere, but visible worldwide. Peak rates can reach up to 50–60 meteors per hour under ideal conditions, with the radiant in Aquarius. The Moon will be 72% illuminated but will set after midnight, providing dark skies for the peak hours.",
+        visibility: "Best viewed from Southern Hemisphere before dawn",
+        importance: "high",
+        coordinates: [
+          { lat: -30, lng: 0 },
+          { lat: -40, lng: 20 },
+          { lat: -50, lng: -20 }
+        ]
+      },
+      {
+        id: "2",
+        name: "Arietid Meteor Shower (Daytime)",
+        date: "2025-06-07",
+        type: "meteor-shower",
+        description: "The Arietids are the most active daytime meteor shower, peaking around June 7. Best chance to see meteors is in the dark hour before dawn, looking east. Rates can be high (up to 60 meteors per hour or more), but visibility is limited due to daylight.",
+        visibility: "Best viewed in dark hour before dawn, looking east",
+        importance: "medium",
+        coordinates: [
+          { lat: 30, lng: 0 },
+          { lat: 40, lng: 20 },
+          { lat: 50, lng: -20 }
+        ]
+      },
+      {
+        id: "3",
+        name: "Alpha Capricornids & Southern Delta Aquarids",
+        date: "2025-07-29",
+        type: "meteor-shower",
+        description: "These two minor showers overlap, producing a combined rate of about 10–15 meteors per hour. Best viewed after midnight from both hemispheres.",
+        visibility: "Best viewed after midnight from both hemispheres",
+        importance: "medium",
+        coordinates: [
+          { lat: 0, lng: 0 },
+          { lat: 20, lng: 20 },
+          { lat: -20, lng: -20 }
+        ]
+      },
+      {
+        id: "4",
+        name: "Perseid Meteor Shower",
+        date: "2025-08-12",
+        type: "meteor-shower",
+        description: "One of the most popular showers, best viewed after midnight, especially in the Northern Hemisphere. Up to 90–100 meteors per hour under ideal conditions, but 2025 will have a bright, nearly full Moon, which may reduce visibility. The radiant is in Perseus, high in the sky before dawn.",
+        visibility: "Best viewed after midnight from Northern Hemisphere",
         importance: "high",
         coordinates: [
           { lat: 40, lng: -90 },
@@ -107,17 +145,31 @@ const AstronomicalEvents = () => {
         ]
       },
       {
-        id: "2",
-        name: "Total Solar Eclipse",
-        date: "2024-04-08",
-        type: "eclipse",
-        description: "A total solar eclipse will be visible across North America.",
-        visibility: "Visible in North America",
+        id: "5",
+        name: "Geminid Meteor Shower",
+        date: "2025-12-13",
+        type: "meteor-shower",
+        description: "The Geminids are among the most spectacular meteor showers, producing up to 120 meteors per hour under dark skies. Best viewed after midnight from both hemispheres. The Moon will not significantly interfere in 2025, offering excellent viewing conditions.",
+        visibility: "Best viewed after midnight from both hemispheres",
         importance: "high",
         coordinates: [
-          { lat: 30, lng: -100 },
+          { lat: 30, lng: 0 },
+          { lat: 40, lng: 20 },
+          { lat: 50, lng: -20 }
+        ]
+      },
+      {
+        id: "6",
+        name: "Ursid Meteor Shower",
+        date: "2025-12-22",
+        type: "meteor-shower",
+        description: "The Ursids are a minor shower, peaking around December 22–23. Best viewed after midnight in the Northern Hemisphere, with rates of 5–10 meteors per hour. The Moon will be near new, so dark skies are expected.",
+        visibility: "Best viewed after midnight from Northern Hemisphere",
+        importance: "medium",
+        coordinates: [
           { lat: 40, lng: -90 },
-          { lat: 50, lng: -80 }
+          { lat: 50, lng: -80 },
+          { lat: 60, lng: -70 }
         ]
       }
     ];
@@ -154,7 +206,6 @@ const AstronomicalEvents = () => {
   const handleEventClick = (event: AstronomicalEvent) => {
     setSelectedEvent(event);
     if (event.coordinates && globeRef.current) {
-      // Center the globe on the first coordinate of the event
       const { lat, lng } = event.coordinates[0];
       globeRef.current.pointOfView({ lat, lng, altitude: 2 }, 1000);
     }
@@ -162,74 +213,44 @@ const AstronomicalEvents = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-20 relative">
-        <div className="absolute inset-0 bg-nebula opacity-30"></div>
+      <section className="py-20 relative animate-fade-in">
+        <div className="absolute inset-0 bg-nebula opacity-30 animate-pulse-glow"></div>
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center p-2 bg-space-700/50 rounded-full mb-6">
-              <Calendar className="h-6 w-6 text-cosmos-purple" />
+            <div className="inline-flex items-center justify-center p-2 bg-space-700/50 rounded-full mb-6 animate-float">
+              <Calendar className="h-6 w-6 text-cosmos-purple animate-twinkle" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Upcoming Astronomical Events
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-scale-in bg-clip-text text-transparent bg-gradient-to-r from-cosmos-purple to-cosmos-blue animate-shimmer">
+              Astronomical Events 2025
             </h1>
-            <p className="text-lg text-gray-300 mb-8">
-              Explore the celestial calendar and discover upcoming astronomical events.
-              From meteor showers to eclipses, stay informed about the wonders of the cosmos.
+            <p className="text-lg text-gray-300 mb-8 animate-fade-in">
+              Explore the celestial events happening throughout the year. From meteor showers to eclipses,
+              discover the wonders of our universe.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Events Section */}
-      <section className="py-16">
+      <section className="py-16 animate-slide-in">
         <div className="container mx-auto px-6">
-          {/* Filter Buttons */}
           <div className="flex flex-wrap gap-4 mb-8 justify-center">
-            <button
-              onClick={() => setFilter("all")}
-              className={`px-4 py-2 rounded-md transition-colors ${
-                filter === "all"
-                  ? "bg-cosmos-purple text-white"
-                  : "bg-space-700/50 text-gray-300 hover:bg-space-600"
-              }`}
-            >
-              All Events
-            </button>
-            <button
-              onClick={() => setFilter("meteor-shower")}
-              className={`px-4 py-2 rounded-md transition-colors ${
-                filter === "meteor-shower"
-                  ? "bg-cosmos-purple text-white"
-                  : "bg-space-700/50 text-gray-300 hover:bg-space-600"
-              }`}
-            >
-              Meteor Showers
-            </button>
-            <button
-              onClick={() => setFilter("eclipse")}
-              className={`px-4 py-2 rounded-md transition-colors ${
-                filter === "eclipse"
-                  ? "bg-cosmos-purple text-white"
-                  : "bg-space-700/50 text-gray-300 hover:bg-space-600"
-              }`}
-            >
-              Eclipses
-            </button>
-            <button
-              onClick={() => setFilter("planetary-alignment")}
-              className={`px-4 py-2 rounded-md transition-colors ${
-                filter === "planetary-alignment"
-                  ? "bg-cosmos-purple text-white"
-                  : "bg-space-700/50 text-gray-300 hover:bg-space-600"
-              }`}
-            >
-              Planetary Alignments
-            </button>
+            {["all", "meteor-shower", "eclipse", "planetary-alignment"].map((filterType, index) => (
+              <button
+                key={filterType}
+                onClick={() => setFilter(filterType)}
+                className={`px-4 py-2 rounded-md transition-all duration-300 transform hover:scale-105 ${
+                  filter === filterType
+                    ? "bg-cosmos-purple text-white shadow-lg shadow-cosmos-purple/20"
+                    : "bg-space-700/50 text-gray-300 hover:bg-space-600"
+                }`}
+                style={{ animationDelay: `${index * 100}ms` }}
+              >
+                {filterType.split("-").map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(" ")}
+              </button>
+            ))}
           </div>
 
-          {/* Interactive Globe */}
-          <div className="mb-12 h-[500px] bg-space-800/50 rounded-lg overflow-hidden">
+          <div className="mb-12 h-[500px] bg-space-800/50 rounded-lg overflow-hidden transform transition-all duration-500 hover:shadow-lg hover:shadow-cosmos-purple/20 animate-float">
             <GlobeGL
               ref={globeRef}
               globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
@@ -243,44 +264,46 @@ const AstronomicalEvents = () => {
             />
           </div>
 
-          {/* Loading State */}
           {loading && (
-            <div className="text-center py-8">
+            <div className="text-center py-8 animate-fade-in">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cosmos-purple mx-auto"></div>
-              <p className="text-gray-300 mt-4">Loading astronomical events...</p>
+              <p className="text-gray-300 mt-4 animate-pulse">Loading astronomical events...</p>
             </div>
           )}
 
-          {/* Error State */}
           {error && (
-            <div className="text-center py-8">
-              <p className="text-red-400">{error}</p>
+            <div className="text-center py-8 animate-fade-in">
+              <p className="text-red-400 animate-pulse">{error}</p>
             </div>
           )}
 
-          {/* Events Grid */}
           {!loading && !error && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {events
                 .filter(event => filter === "all" || event.type === filter)
-                .map((event) => (
+                .map((event, index) => (
                   <div
                     key={event.id}
                     onClick={() => handleEventClick(event)}
-                    className="bg-space-700/30 border border-space-600/50 rounded-lg p-6 hover:border-cosmos-purple/50 transition-colors cursor-pointer"
+                    className="bg-space-700/30 border border-space-600/50 rounded-lg p-6 hover:border-cosmos-purple/50 transition-all duration-300 cursor-pointer transform hover:scale-105 hover:shadow-lg hover:shadow-cosmos-purple/20 animate-fade-in group"
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-2">
-                        {getEventIcon(event.type)}
-                        <h3 className="text-xl font-bold text-white">{event.name}</h3>
+                        <div className="animate-float group-hover:animate-none">
+                          {getEventIcon(event.type)}
+                        </div>
+                        <h3 className="text-xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-cosmos-purple to-cosmos-blue animate-shimmer">
+                          {event.name}
+                        </h3>
                       </div>
-                      <span className={`text-sm font-medium ${getImportanceColor(event.importance)}`}>
+                      <span className={`text-sm font-medium ${getImportanceColor(event.importance)} animate-pulse-glow`}>
                         {event.importance.toUpperCase()}
                       </span>
                     </div>
-                    <p className="text-cosmos-purple font-medium mb-4">{event.date}</p>
-                    <p className="text-gray-300 mb-4 line-clamp-2">{event.description}</p>
-                    <div className="flex items-center text-sm text-gray-400">
+                    <p className="text-cosmos-purple font-medium mb-4 animate-fade-in">{event.date}</p>
+                    <p className="text-gray-300 mb-4 line-clamp-2 animate-fade-in">{event.description}</p>
+                    <div className="flex items-center text-sm text-gray-400 animate-fade-in">
                       <span className="mr-2">Visibility:</span>
                       <span>{event.visibility}</span>
                     </div>
@@ -289,19 +312,22 @@ const AstronomicalEvents = () => {
             </div>
           )}
 
-          {/* Event Details Modal */}
           {selectedEvent && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50">
-              <div className="bg-space-800 border border-space-700 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50 animate-fade-in">
+              <div className="bg-space-800 border border-space-700 rounded-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto transform transition-all duration-300 animate-scale-in">
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-6">
                     <div className="flex items-center gap-3">
-                      {getEventIcon(selectedEvent.type)}
-                      <h2 className="text-2xl font-bold text-white">{selectedEvent.name}</h2>
+                      <div className="animate-float">
+                        {getEventIcon(selectedEvent.type)}
+                      </div>
+                      <h2 className="text-2xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-cosmos-purple to-cosmos-blue animate-shimmer">
+                        {selectedEvent.name}
+                      </h2>
                     </div>
                     <button
                       onClick={() => setSelectedEvent(null)}
-                      className="text-gray-400 hover:text-white"
+                      className="text-gray-400 hover:text-white transition-colors duration-300 transform hover:scale-110"
                     >
                       <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -310,32 +336,24 @@ const AstronomicalEvents = () => {
                   </div>
                   
                   <div className="space-y-6">
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Date</h3>
-                      <p className="text-cosmos-purple">{selectedEvent.date}</p>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Description</h3>
-                      <p className="text-gray-300">{selectedEvent.description}</p>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Visibility</h3>
-                      <p className="text-gray-300">{selectedEvent.visibility}</p>
-                    </div>
-                    
-                    <div>
-                      <h3 className="text-lg font-semibold text-white mb-2">Importance</h3>
-                      <p className={`${getImportanceColor(selectedEvent.importance)}`}>
-                        {selectedEvent.importance.toUpperCase()}
-                      </p>
-                    </div>
+                    {[
+                      { title: "Date", content: selectedEvent.date },
+                      { title: "Description", content: selectedEvent.description },
+                      { title: "Visibility", content: selectedEvent.visibility },
+                      { title: "Importance", content: selectedEvent.importance.toUpperCase() }
+                    ].map((section, index) => (
+                      <div key={section.title} className="animate-fade-in transform transition-all duration-300 hover:translate-x-2" style={{ animationDelay: `${index * 100}ms` }}>
+                        <h3 className="text-lg font-semibold text-white mb-2">{section.title}</h3>
+                        <p className={`${section.title === "Importance" ? getImportanceColor(selectedEvent.importance) : "text-gray-300"}`}>
+                          {section.content}
+                        </p>
+                      </div>
+                    ))}
 
                     {selectedEvent.coordinates && (
-                      <div>
+                      <div className="animate-fade-in" style={{ animationDelay: "400ms" }}>
                         <h3 className="text-lg font-semibold text-white mb-2">Best Viewing Locations</h3>
-                        <div className="h-[300px] bg-space-700/30 rounded-lg overflow-hidden">
+                        <div className="h-[300px] bg-space-700/30 rounded-lg overflow-hidden transform transition-all duration-500 hover:shadow-lg hover:shadow-cosmos-purple/20 animate-float">
                           <GlobeGL
                             globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
                             backgroundImageUrl="//unpkg.com/three-globe/example/img/night-sky.png"
