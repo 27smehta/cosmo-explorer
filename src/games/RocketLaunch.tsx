@@ -9,7 +9,7 @@ const RocketLaunch = () => {
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState("");
   const [fuel, setFuel] = useState(100);
-  const [thrust, setThrust] = useState(50);
+  const [thrust, setThrust] = useState(0);
   const [altitude, setAltitude] = useState(0);
   const [velocity, setVelocity] = useState(0);
   const [gravity, setGravity] = useState(1.62); // Moon gravity
@@ -17,22 +17,38 @@ const RocketLaunch = () => {
   const [status, setStatus] = useState("preparing");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const requestRef = useRef<number | null>(null);
+  const [landed, setLanded] = useState(false);
+  const [crashed, setCrashed] = useState(false);
+  const [targetAltitude, setTargetAltitude] = useState(10000);
+  const [safeVelocity, setSafeVelocity] = useState(5);
+  const [lastTime, setLastTime] = useState(0);
+  const [animationFrameId, setAnimationFrameId] = useState<number | null>(null);
 
   // Game variables
   const moonTarget = 10000; // meters
   const marsTarget = 20000; // meters
   const targetAltitude = destination === "moon" ? moonTarget : marsTarget;
-  const safeVelocity = 5; // m/s
+
+  const resetGame = () => {
+    setAltitude(0);
+    setVelocity(0);
+    setFuel(100);
+    setThrust(0);
+    setMessage('');
+    setStatus("preparing");
+    setScore(0);
+    setLanded(false);
+    setCrashed(false);
+    setLastTime(0);
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+    }
+  };
 
   useEffect(() => {
     if (gameStarted && !gameOver) {
       // Reset game variables
-      setFuel(100);
-      setThrust(50);
-      setAltitude(0);
-      setVelocity(0);
-      setStatus("launching");
-      setMessage("Launch sequence initiated!");
+      resetGame();
       
       // Start animation loop
       startAnimation();
@@ -71,28 +87,33 @@ const RocketLaunch = () => {
             setMessage("Successful landing! Well done commander!");
             setScore(Math.floor(fuel * 100 + (safeVelocity - Math.abs(velocity)) * 50));
             setGameOver(true);
+            setLanded(true);
           } else if (velocity < 0) { // Velocity should be negative (descending)
             setStatus("crashed");
             setMessage(`Crash landing! Your velocity was too high (${Math.abs(velocity).toFixed(1)} m/s)`);
             setScore(Math.floor(fuel * 10));
             setGameOver(true);
+            setCrashed(true);
           }
         } else if (altitude > targetAltitude + 100) {
           // Passed the target by too much
           setStatus("failed");
           setMessage("You've overshot the landing zone! Mission failed.");
           setGameOver(true);
+          setCrashed(true);
         } else if (altitude < 0) {
           // Crashed into the ground
           setStatus("crashed");
           setMessage("You crashed into the ground! Mission failed.");
           setGameOver(true);
+          setCrashed(true);
         }
       } else if (fuel <= 0 && altitude < targetAltitude * 0.9) {
         // Out of fuel and not close to target
         setStatus("failed");
         setMessage("Out of fuel! Mission failed.");
         setGameOver(true);
+        setCrashed(true);
       }
       
       if (!gameOver) {
@@ -305,14 +326,12 @@ const RocketLaunch = () => {
   };
 
   const handleRestart = () => {
+    resetGame();
     setGameStarted(true);
     setGameOver(false);
-    setScore(0);
-  };
-
-  const handleDestinationChange = (dest: string) => {
-    setDestination(dest);
-    setGravity(dest === "moon" ? 1.62 : 3.72); // Moon vs Mars gravity
+    setDestination(destination === "moon" ? "mars" : "moon");
+    setGravity(destination === "moon" ? 1.62 : 3.72);
+    setTargetAltitude(destination === "moon" ? moonTarget : marsTarget);
   };
 
   return (
@@ -351,7 +370,7 @@ const RocketLaunch = () => {
                   <h3 className="text-lg font-semibold text-white mb-4">Select Destination</h3>
                   <div className="flex justify-center space-x-4">
                     <button
-                      onClick={() => handleDestinationChange("moon")}
+                      onClick={() => setDestination("moon")}
                       className={`p-4 rounded-lg transition-all ${
                         destination === "moon" 
                           ? "bg-cosmos-purple/30 border-2 border-cosmos-purple" 
@@ -365,7 +384,7 @@ const RocketLaunch = () => {
                     </button>
                     
                     <button
-                      onClick={() => handleDestinationChange("mars")}
+                      onClick={() => setDestination("mars")}
                       className={`p-4 rounded-lg transition-all ${
                         destination === "mars" 
                           ? "bg-cosmos-purple/30 border-2 border-cosmos-purple" 
