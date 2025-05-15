@@ -139,7 +139,6 @@ const ZodiacSign = () => {
       const birthMonth = month;
       const birthDay = day;
       
-      // Handle Capricorn's date range which spans across years
       if (sign.name === "Capricorn") {
         return (birthMonth === 12 && birthDay >= 22) || (birthMonth === 1 && birthDay <= 19);
       }
@@ -159,77 +158,79 @@ const ZodiacSign = () => {
 
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="py-20 relative">
-        <div className="absolute inset-0 bg-nebula opacity-30"></div>
+      <section className="py-20 relative animate-fade-in">
+        <div className="absolute inset-0 bg-nebula opacity-30 animate-pulse-glow"></div>
         <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center justify-center p-2 bg-space-700/50 rounded-full mb-6">
-              <Star className="h-6 w-6 text-cosmos-purple" />
+            <div className="inline-flex items-center justify-center p-2 bg-space-700/50 rounded-full mb-6 animate-float">
+              <Star className="h-6 w-6 text-cosmos-purple animate-twinkle" />
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 animate-scale-in bg-clip-text text-transparent bg-gradient-to-r from-cosmos-purple to-cosmos-blue animate-shimmer">
               Zodiac Sign Calculator
             </h1>
-            <p className="text-lg text-gray-300 mb-8">
-              Discover your zodiac sign and learn about its unique characteristics.
-              Enter your date of birth below to find out more!
+            <p className="text-lg text-gray-300 mb-8 animate-fade-in">
+              Discover your zodiac sign and explore its unique characteristics, traits, and cosmic influences.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Calculator Section */}
-      <section className="py-16">
+      <section className="py-16 animate-slide-in">
         <div className="container mx-auto px-6">
-          <div className="max-w-2xl mx-auto bg-space-800/80 backdrop-blur-sm border border-space-700/50 rounded-lg p-8">
-            <div className="flex flex-col items-center gap-4 mb-8">
-              <div className="w-full max-w-md">
-                <label htmlFor="birthDate" className="block text-sm font-medium text-gray-300 mb-2">
-                  Enter your date of birth
+          <div className="max-w-2xl mx-auto">
+            <div className="bg-space-700/30 border border-space-600/50 rounded-lg p-8 transform transition-all duration-300 hover:shadow-lg hover:shadow-cosmos-purple/20 animate-float">
+              <div className="mb-8">
+                <label htmlFor="birthdate" className="block text-lg font-medium text-white mb-4 animate-fade-in">
+                  Enter Your Birth Date
                 </label>
                 <input
                   type="date"
-                  id="birthDate"
+                  id="birthdate"
                   value={birthDate}
                   onChange={handleDateChange}
-                  className="w-full px-4 py-2 bg-space-700/50 border border-space-600 rounded-md text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cosmos-purple"
+                  className="w-full px-4 py-3 bg-space-800/50 border border-space-600/50 rounded-lg text-white focus:outline-none focus:border-cosmos-purple transition-all duration-300 transform hover:scale-[1.02] animate-fade-in"
                 />
               </div>
-            </div>
 
-            {/* Results Section */}
-            {zodiacSign && (
-              <div className="bg-space-700/30 border border-space-600/50 rounded-lg p-6">
-                <div className="text-center mb-6">
-                  <h2 className="text-3xl font-bold text-white mb-2">{zodiacSign.name}</h2>
-                  <p className="text-cosmos-purple font-medium">{zodiacSign.dateRange}</p>
+              {zodiacSign && (
+                <div className="space-y-6 animate-fade-in">
+                  <div className="flex items-center gap-4 mb-6 transform transition-all duration-300 hover:translate-x-2">
+                    <div className="w-16 h-16 bg-space-800/50 rounded-full flex items-center justify-center animate-float">
+                      <span className="text-2xl">{zodiacSign.name.charAt(0)}</span>
+                    </div>
+                    <div>
+                      <h2 className="text-2xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-cosmos-purple to-cosmos-blue animate-shimmer">
+                        {zodiacSign.name}
+                      </h2>
+                      <p className="text-cosmos-purple">{zodiacSign.dateRange}</p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="transform transition-all duration-300 hover:translate-x-2">
+                      <h3 className="text-lg font-semibold text-white mb-2 animate-fade-in">Element</h3>
+                      <p className="text-gray-300 animate-fade-in">{zodiacSign.element}</p>
+                    </div>
+
+                    <div className="transform transition-all duration-300 hover:translate-x-2">
+                      <h3 className="text-lg font-semibold text-white mb-2 animate-fade-in">Description</h3>
+                      <p className="text-gray-300 animate-fade-in">{zodiacSign.description}</p>
+                    </div>
+
+                    <div className="transform transition-all duration-300 hover:translate-x-2">
+                      <h3 className="text-lg font-semibold text-white mb-2 animate-fade-in">Traits</h3>
+                      <ul className="list-disc list-inside text-gray-300 space-y-2">
+                        {zodiacSign.traits.map((trait, index) => (
+                          <li key={index} className="animate-fade-in transform transition-all duration-300 hover:translate-x-2" style={{ animationDelay: `${index * 100}ms` }}>
+                            {trait}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
                 </div>
-                
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Element</h3>
-                    <p className="text-gray-300">{zodiacSign.element}</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Description</h3>
-                    <p className="text-gray-300">{zodiacSign.description}</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="text-xl font-semibold text-white mb-2">Key Traits</h3>
-                    <ul className="grid grid-cols-2 gap-2">
-                      {zodiacSign.traits.map((trait, index) => (
-                        <li key={index} className="flex items-center text-gray-300">
-                          <span className="w-2 h-2 bg-cosmos-purple rounded-full mr-2"></span>
-                          {trait}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </section>
