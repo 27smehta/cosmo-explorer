@@ -1,7 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import Layout from '../components/layout/Layout';
-import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -13,7 +10,11 @@ interface ISSLocation {
   timestamp: number;
 }
 
-const ISSTracker = () => {
+interface ISSTrackerProps {
+  onLocationUpdate?: (location: ISSLocation) => void;
+}
+
+const ISSTracker = ({ onLocationUpdate }: ISSTrackerProps) => {
   const [location, setLocation] = useState<ISSLocation | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +31,15 @@ const ISSTracker = () => {
       try {
         const response = await fetch('/api/iss-now');
         const data = await response.json();
-        setLocation(data);
+        const locationData = {
+          latitude: parseFloat(data.latitude),
+          longitude: parseFloat(data.longitude),
+          altitude: data.altitude,
+          velocity: data.velocity,
+          timestamp: data.timestamp
+        };
+        setLocation(locationData);
+        onLocationUpdate?.(locationData);
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch ISS location');
@@ -42,7 +51,7 @@ const ISSTracker = () => {
     const interval = setInterval(fetchISSLocation, 5000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [onLocationUpdate]);
 
   useEffect(() => {
     if (!containerRef.current || !location) return;
@@ -130,67 +139,19 @@ const ISSTracker = () => {
   }, [location]);
 
   return (
-    <Layout>
-      <div className="container mx-auto px-6 py-12">
-        <Link
-          to="/"
-          className="inline-flex items-center text-sm text-cosmos-purple hover:text-cosmos-blue transition-colors mb-8"
-        >
-          <ArrowLeft className="h-4 w-4 mr-2" />
-          Back to Home
-        </Link>
-
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              ISS Tracker
-            </h1>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Track the International Space Station in real-time as it orbits Earth. The red dot shows the current position of the ISS.
-            </p>
-          </div>
-
-          <div className="bg-space-800/80 backdrop-blur-sm border border-space-700/50 rounded-lg overflow-hidden">
-            <div className="relative h-[600px]">
-              {loading ? (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cosmos-purple"></div>
-                </div>
-              ) : error ? (
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <p className="text-red-500">{error}</p>
-                </div>
-              ) : (
-                <div ref={containerRef} className="w-full h-full" />
-              )}
-            </div>
-
-            {location && (
-              <div className="p-6 border-t border-space-700/50">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-400 mb-1">Latitude</h3>
-                    <p className="text-lg text-white">{location.latitude.toFixed(4)}°</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-400 mb-1">Longitude</h3>
-                    <p className="text-lg text-white">{location.longitude.toFixed(4)}°</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-400 mb-1">Altitude</h3>
-                    <p className="text-lg text-white">{location.altitude.toFixed(0)} km</p>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-medium text-gray-400 mb-1">Velocity</h3>
-                    <p className="text-lg text-white">{location.velocity.toFixed(0)} km/h</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
+    <div className="relative w-full h-full">
+      {loading ? (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-cosmos-purple"></div>
         </div>
-      </div>
-    </Layout>
+      ) : error ? (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <p className="text-red-500">{error}</p>
+        </div>
+      ) : (
+        <div ref={containerRef} className="w-full h-full" />
+      )}
+    </div>
   );
 };
 
