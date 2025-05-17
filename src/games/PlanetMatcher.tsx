@@ -1,108 +1,107 @@
-import { useState, useEffect } from 'react';
-import Layout from '../components/layout/Layout';
-import { Link } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
+import { useState, useEffect } from "react";
+import Layout from "../components/layout/Layout";
+import { Link } from "react-router-dom";
+import { ArrowLeft, Plane, Star } from "lucide-react";
 
-interface Planet {
-  id: number;
-  name: string;
-  image: string;
-  description: string;
-  isMatched: boolean;
-}
-
-const planets: Planet[] = [
-  {
-    id: 1,
-    name: 'Mercury',
-    image: '/images/planets/mercury.png',
-    description: 'The smallest and innermost planet in the Solar System.',
-    isMatched: false
-  },
-  {
-    id: 2,
-    name: 'Venus',
-    image: '/images/planets/venus.png',
-    description: 'The second planet from the Sun and Earth\'s closest planetary neighbor.',
-    isMatched: false
-  },
-  {
-    id: 3,
-    name: 'Earth',
-    image: '/images/planets/earth.png',
-    description: 'The third planet from the Sun and the only astronomical object known to harbor life.',
-    isMatched: false
-  },
-  {
-    id: 4,
-    name: 'Mars',
-    image: '/images/planets/mars.png',
-    description: 'The fourth planet from the Sun and the second-smallest planet in the Solar System.',
-    isMatched: false
-  },
-  {
-    id: 5,
-    name: 'Jupiter',
-    image: '/images/planets/jupiter.png',
-    description: 'The fifth planet from the Sun and the largest in the Solar System.',
-    isMatched: false
-  },
-  {
-    id: 6,
-    name: 'Saturn',
-    image: '/images/planets/saturn.png',
-    description: 'The sixth planet from the Sun and the second-largest in the Solar System.',
-    isMatched: false
-  }
+const planetData = [
+  { name: "Earth", img: "🌍" },
+  { name: "Mars", img: "🌕" },
+  { name: "Jupiter", img: "🪐" },
+  { name: "Venus", img: "🌑" },
+  { name: "Neptune", img: "🔵" },
+  { name: "Mercury", img: "🟤" },
 ];
 
+const shuffle = (arr: any[]) => [...arr].sort(() => Math.random() - 0.5);
+
 const PlanetMatcher = () => {
-  const [gamePlanets, setGamePlanets] = useState<Planet[]>([]);
-  const [selectedPlanets, setSelectedPlanets] = useState<Planet[]>([]);
-  const [score, setScore] = useState(0);
+  const [cards, setCards] = useState<
+    { id: number; name: string; img: string; flipped: boolean; matched: boolean }[]
+  >([]);
+  const [firstCard, setFirstCard] = useState<number | null>(null);
+  const [secondCard, setSecondCard] = useState<number | null>(null);
+  const [moves, setMoves] = useState(0);
+  const [matchedCount, setMatchedCount] = useState(0);
+  const [waiting, setWaiting] = useState(false);
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    startNewGame();
+    const fullList = shuffle(
+      planetData.concat(planetData).map((p, idx) => ({
+        ...p,
+        id: idx,
+        flipped: false,
+        matched: false,
+      }))
+    );
+    setCards(fullList);
+    setMoves(0);
+    setMatchedCount(0);
+    setFirstCard(null);
+    setSecondCard(null);
+    setWaiting(false);
+    setGameOver(false);
   }, []);
 
-  const startNewGame = () => {
-    const shuffledPlanets = [...planets, ...planets]
-      .sort(() => Math.random() - 0.5)
-      .map((planet, index) => ({ ...planet, id: index + 1 }));
-    setGamePlanets(shuffledPlanets);
-    setSelectedPlanets([]);
-    setScore(0);
-    setGameOver(false);
+  useEffect(() => {
+    if (matchedCount === planetData.length) {
+      setGameOver(true);
+    }
+  }, [matchedCount]);
+
+  const handleFlip = (idx: number) => {
+    if (waiting || cards[idx].flipped || cards[idx].matched) return;
+
+    let flippedCards = [...cards];
+    flippedCards[idx].flipped = true;
+
+    if (firstCard === null) {
+      setFirstCard(idx);
+      setCards(flippedCards);
+    } else if (secondCard === null && idx !== firstCard) {
+      setSecondCard(idx);
+      setCards(flippedCards);
+      setMoves(moves + 1);
+
+      setWaiting(true);
+      setTimeout(() => {
+        const firstIdx = firstCard;
+        const secondIdx = idx;
+
+        if (
+          flippedCards[firstIdx].name === flippedCards[secondIdx].name
+        ) {
+          flippedCards[firstIdx].matched = true;
+          flippedCards[secondIdx].matched = true;
+          setMatchedCount(matchedCount + 1);
+        } else {
+          flippedCards[firstIdx].flipped = false;
+          flippedCards[secondIdx].flipped = false;
+        }
+        setCards([...flippedCards]);
+        setFirstCard(null);
+        setSecondCard(null);
+        setWaiting(false);
+      }, 900);
+    }
   };
 
-  const handlePlanetClick = (planet: Planet) => {
-    if (selectedPlanets.length === 2 || planet.isMatched) return;
-
-    const newSelectedPlanets = [...selectedPlanets, planet];
-    setSelectedPlanets(newSelectedPlanets);
-
-    if (newSelectedPlanets.length === 2) {
-      const [first, second] = newSelectedPlanets;
-      if (first.name === second.name) {
-        setGamePlanets(prevPlanets =>
-          prevPlanets.map(p =>
-            p.name === first.name ? { ...p, isMatched: true } : p
-          )
-        );
-        setScore(prev => prev + 10);
-        setSelectedPlanets([]);
-
-        const allMatched = gamePlanets.every(p => p.isMatched);
-        if (allMatched) {
-          setGameOver(true);
-        }
-      } else {
-        setTimeout(() => {
-          setSelectedPlanets([]);
-        }, 1000);
-      }
-    }
+  const handleRestart = () => {
+    const fullList = shuffle(
+      planetData.concat(planetData).map((p, idx) => ({
+        ...p,
+        id: idx,
+        flipped: false,
+        matched: false,
+      }))
+    );
+    setCards(fullList);
+    setMoves(0);
+    setMatchedCount(0);
+    setFirstCard(null);
+    setSecondCard(null);
+    setWaiting(false);
+    setGameOver(false);
   };
 
   return (
@@ -115,79 +114,61 @@ const PlanetMatcher = () => {
           <ArrowLeft className="h-4 w-4 mr-2" />
           Back to Games
         </Link>
-
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Planet Matcher
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-3 flex justify-center items-center gap-2">
+              <Plane className="w-8 h-8 text-cosmos-purple" /> Planet Matcher
             </h1>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              Test your memory by matching pairs of planets. Find all the matching pairs to win!
+            <p className="text-gray-300 max-w-xl mx-auto">
+              Flip the cosmic cards and test your memory! Match all planets and moons as quickly as you can. Fewer moves means a higher score!
             </p>
           </div>
-
-          <div className="bg-space-800/80 backdrop-blur-sm border border-space-700/50 rounded-lg p-6">
-            <div className="flex justify-between items-center mb-6">
-              <div className="text-white">
-                Score: <span className="text-cosmos-purple">{score}</span>
-              </div>
-              <button
-                onClick={startNewGame}
-                className="space-button"
-              >
-                New Game
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-              {gamePlanets.map(planet => (
+          <div className="flex flex-col items-center justify-center">
+            <div className="grid grid-cols-4 gap-4 bg-space-800/80 p-8 rounded-lg w-fit">
+              {cards.map((card, idx) => (
                 <div
-                  key={planet.id}
-                  onClick={() => handlePlanetClick(planet)}
-                  className={`aspect-square rounded-lg overflow-hidden cursor-pointer transition-all duration-300 transform hover:scale-105 ${
-                    selectedPlanets.includes(planet) || planet.isMatched
-                      ? 'ring-2 ring-cosmos-purple'
-                      : 'bg-space-700/50'
-                  }`}
+                  key={card.id}
+                  className={`w-24 h-28 flex items-center justify-center rounded-md cursor-pointer relative overflow-hidden 
+                    border-2 transition-colors shadow-lg 
+                    ${
+                      card.matched
+                        ? "bg-green-400/20 border-green-500/70"
+                        : card.flipped
+                        ? "bg-cosmos-purple/30 border-cosmos-purple"
+                        : "bg-space-700 border-space-600 hover:border-cosmos-purple"
+                    }
+                  `}
+                  onClick={() => handleFlip(idx)}
+                  aria-label={card.flipped || card.matched ? card.name : "Card"}
                 >
-                  {selectedPlanets.includes(planet) || planet.isMatched ? (
-                    <div className="w-full h-full flex items-center justify-center p-4">
-                      <img
-                        src={planet.image}
-                        alt={planet.name}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
+                  {(card.flipped || card.matched) ? (
+                    <span className="text-5xl animate-scale-in" aria-label={card.name}>{card.img}</span>
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center">
-                      <div className="w-16 h-16 rounded-full bg-space-600/50 animate-pulse"></div>
-                    </div>
+                    <Star className="h-7 w-7 text-cosmos-purple/40" />
                   )}
                 </div>
               ))}
             </div>
-
-            {gameOver && (
-              <div className="fixed inset-0 flex items-center justify-center bg-space-900/80 backdrop-blur-sm">
-                <div className="text-center p-8 bg-space-800 border border-space-700 rounded-lg max-w-md">
-                  <h2 className="text-2xl font-bold text-white mb-4">
-                    Congratulations!
-                  </h2>
-                  <p className="text-xl text-cosmos-purple mb-6">
-                    You matched all the planets!
-                  </p>
-                  <p className="text-white mb-6">
-                    Final Score: {score}
-                  </p>
-                  <button
-                    onClick={startNewGame}
-                    className="space-button"
-                  >
-                    Play Again
-                  </button>
-                </div>
-              </div>
-            )}
+            <div className="mt-8 text-center">
+              <p className="text-white mb-1 font-mono">Moves: {moves}</p>
+              {gameOver ? (
+                <div className="text-lg font-bold text-green-400 mb-2">🎉 All pairs matched!</div>
+              ) : null}
+              <button
+                onClick={handleRestart}
+                className="space-button mt-2"
+              >
+                {gameOver ? "Play Again" : "Restart"}
+              </button>
+            </div>
+          </div>
+          <div className="mt-8 bg-space-800/50 backdrop-blur-sm border border-space-700/30 rounded-lg p-6">
+            <h3 className="text-xl font-bold text-white mb-4">How to Play</h3>
+            <ul className="text-gray-300 space-y-2">
+              <li>Click any two cards to reveal what's beneath.</li>
+              <li>If they match, they'll stay open! If not, they'll flip back.</li>
+              <li>Match all pairs using as few moves as possible.</li>
+            </ul>
           </div>
         </div>
       </div>

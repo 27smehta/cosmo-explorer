@@ -5,8 +5,8 @@ import ISSTracker from "./ISSTracker";
 import { useState } from "react";
 
 interface ISSLocation {
-  latitude: string;
-  longitude: string;
+  latitude: number;
+  longitude: number;
   timestamp: number;
   altitude: number;
   velocity: number;
@@ -64,11 +64,11 @@ const ISSTrackerPage = () => {
                   <div className="space-y-2">
                     <div className="flex justify-between">
                       <span className="text-gray-400">Latitude:</span>
-                      <span className="text-white">{parseFloat(issLocation.latitude).toFixed(2)}°</span>
+                      <span className="text-white">{issLocation.latitude.toFixed(2)}°</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-400">Longitude:</span>
-                      <span className="text-white">{parseFloat(issLocation.longitude).toFixed(2)}°</span>
+                      <span className="text-white">{issLocation.longitude.toFixed(2)}°</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-gray-400">Altitude:</span>
