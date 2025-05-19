@@ -55,12 +55,19 @@ This starts the development server. Visit http://localhost:5173 in your browser.
 text
 src/
 ├── components/   # Reusable UI components
+
 ├── pages/        # Route-based page components
+
 ├── games/        # Interactive games
+
 ├── hooks/        # Custom React hooks
+
 ├── utils/        # Utility functions
+
 ├── types/        # TypeScript type definitions
+
 └── data/         # Static data and constants
+
 # Core Technologies
 React (with TypeScript)
 
