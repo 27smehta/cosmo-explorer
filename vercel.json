@@ -1,43 +1,12 @@
 {
   "version": 2,
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
-  "headers": [
+  "builds": [
     {
-      "source": "/assets/(.*)\\.js",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.js",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.mjs",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "text/javascript"
-        }
-      ]
-    },
-    {
-      "source": "/(.*)\\.cjs",
-      "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/javascript"
-        }
-      ]
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
     }
   ],
   "routes": [
@@ -46,25 +15,34 @@
       "dest": "/api/$1"
     },
     {
-      "src": "/assets/(.*)\\.js",
-      "dest": "/assets/$1.js",
+      "src": "/assets/(.*)",
       "headers": {
-        "Content-Type": "text/javascript"
-      }
+        "cache-control": "public, max-age=31536000, immutable",
+        "Content-Type": "application/javascript"
+      },
+      "continue": true
     },
     {
       "src": "/(.*)\\.js",
-      "dest": "/$1.js",
       "headers": {
-        "Content-Type": "text/javascript"
-      }
-    },
-    {
-      "handle": "filesystem"
+        "Content-Type": "application/javascript"
+      },
+      "continue": true
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html"
+      "dest": "/$1"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
+      ]
     }
   ]
 } 
