@@ -8,11 +8,22 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
     proxy: {
+      '/api': {
+        target: 'http://localhost:3001',
+        changeOrigin: true,
+      },
       '/api/iss-now': {
         target: 'https://api.wheretheiss.at',
         changeOrigin: true,
-        rewrite: (path) => '/v1/satellites/25544'
-      }
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api\/iss-now/, '/v1/satellites/25544'),
+        configure: (proxy, _options) => {
+          proxy.on('proxyReq', (proxyReq, req, res) => {
+            proxyReq.setHeader('User-Agent', 'CosmoExplorer/1.0');
+            proxyReq.setHeader('Accept', 'application/json');
+          });
+        }
+      },
     }
   },
   plugins: [

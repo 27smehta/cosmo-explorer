@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Star, Rocket, Book, Gamepad, Scale, Sparkles, Calendar, Satellite } from "lucide-react";
+import { Rocket, BookOpen, Gamepad2, Scale, Sparkles, Calendar, Map, Home } from "lucide-react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -21,13 +21,14 @@ const Header = () => {
   }, [location]);
 
   const navItems = [
-    { name: "Home", path: "/", icon: <Star className="h-4 w-4" /> },
-    { name: "Articles", path: "/articles", icon: <Book className="h-4 w-4" /> },
-    { name: "Games", path: "/games", icon: <Gamepad className="h-4 w-4" /> },
-    { name: "Weight Converter", path: "/weight-converter", icon: <Scale className="h-4 w-4" /> },
-    { name: "Zodiac Sign", path: "/zodiac-sign", icon: <Sparkles className="h-4 w-4" /> },
-    { name: "Astronomical Events", path: "/astronomical-events", icon: <Calendar className="h-4 w-4" /> },
-    { name: "ISS Tracker", path: "/iss-tracker", icon: <Satellite className="h-4 w-4" /> },
+    { path: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
+    { path: "/articles", label: "Articles", icon: <BookOpen className="h-4 w-4" /> },
+    { path: "/games", label: "Games", icon: <Gamepad2 className="h-4 w-4" /> },
+    { path: "/weight-converter", label: "Weight Converter", icon: <Scale className="h-4 w-4" /> },
+    { path: "/zodiac-sign", label: "Zodiac Sign", icon: <Sparkles className="h-4 w-4" /> },
+    { path: "/astronomical-events", label: "Astronomical Events", icon: <Calendar className="h-4 w-4" /> },
+    { path: "/iss-tracker", label: "ISS Tracker", icon: <Rocket className="h-4 w-4" /> },
+    { path: "/sky-map", label: "Sky Map", icon: <Map className="h-4 w-4" /> }
   ];
 
   const isActive = (path: string) => {
@@ -58,7 +59,7 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
-                key={item.name}
+                key={item.label}
                 to={item.path}
                 className={`flex items-center space-x-2 py-2 text-sm font-medium transition-colors ${
                   isActive(item.path)
@@ -67,7 +68,7 @@ const Header = () => {
                 }`}
               >
                 {item.icon}
-                <span>{item.name}</span>
+                <span>{item.label}</span>
               </Link>
             ))}
           </nav>
@@ -107,7 +108,7 @@ const Header = () => {
           <nav className="md:hidden mt-4 pb-2 space-y-3">
             {navItems.map((item) => (
               <Link
-                key={item.name}
+                key={item.label}
                 to={item.path}
                 className={`flex items-center space-x-3 py-3 px-4 rounded-md transition-colors ${
                   isActive(item.path)
@@ -116,7 +117,7 @@ const Header = () => {
                 }`}
               >
                 {item.icon}
-                <span>{item.name}</span>
+                <span>{item.label}</span>
               </Link>
             ))}
           </nav>

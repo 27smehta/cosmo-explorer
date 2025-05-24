@@ -25,23 +25,33 @@ const ISSTracker = ({ onLocationUpdate }: ISSTrackerProps) => {
   const controlsRef = useRef<OrbitControls | null>(null);
   const earthRef = useRef<THREE.Mesh | null>(null);
   const issMarkerRef = useRef<THREE.Mesh | null>(null);
+  const isInitializedRef = useRef(false);
 
   useEffect(() => {
     const fetchISSLocation = async () => {
       try {
-        const response = await fetch('/api/iss-now');
+        const response = await fetch('https://api.wheretheiss.at/v1/satellites/25544', {
+          headers: {
+            'User-Agent': 'CosmoExplorer/1.0',
+            'Accept': 'application/json'
+          }
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch ISS location');
+        }
         const data = await response.json();
         const locationData = {
           latitude: parseFloat(data.latitude),
           longitude: parseFloat(data.longitude),
-          altitude: data.altitude,
-          velocity: data.velocity,
-          timestamp: data.timestamp
+          altitude: parseFloat(data.altitude),
+          velocity: parseFloat(data.velocity),
+          timestamp: Math.floor(Date.now() / 1000)
         };
         setLocation(locationData);
         onLocationUpdate?.(locationData);
         setLoading(false);
       } catch (err) {
+        console.error('Error fetching ISS location:', err);
         setError('Failed to fetch ISS location');
         setLoading(false);
       }
@@ -60,68 +70,72 @@ const ISSTracker = ({ onLocationUpdate }: ISSTrackerProps) => {
     const width = container.clientWidth;
     const height = container.clientHeight;
 
-    const scene = new THREE.Scene();
-    sceneRef.current = scene;
+    if (!isInitializedRef.current) {
+      const scene = new THREE.Scene();
+      sceneRef.current = scene;
 
-    const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
-    cameraRef.current = camera;
+      const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+      cameraRef.current = camera;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(width, height);
-    renderer.setPixelRatio(window.devicePixelRatio);
-    container.appendChild(renderer.domElement);
-    rendererRef.current = renderer;
-
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
-    directionalLight.position.set(5, 3, 5);
-    scene.add(directionalLight);
-
-    const earthGeometry = new THREE.SphereGeometry(5, 32, 32);
-    const earthTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg');
-    const earthMaterial = new THREE.MeshPhongMaterial({ map: earthTexture });
-    const earth = new THREE.Mesh(earthGeometry, earthMaterial);
-    scene.add(earth);
-    earthRef.current = earth;
-
-    const issGeometry = new THREE.SphereGeometry(0.1, 16, 16);
-    const issMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
-    const issMarker = new THREE.Mesh(issGeometry, issMaterial);
-    scene.add(issMarker);
-    issMarkerRef.current = issMarker;
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controlsRef.current = controls;
-
-    camera.position.z = 15;
-
-    const handleResize = () => {
-      const width = container.clientWidth;
-      const height = container.clientHeight;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
+      const renderer = new THREE.WebGLRenderer({ antialias: true });
       renderer.setSize(width, height);
-    };
+      renderer.setPixelRatio(window.devicePixelRatio);
+      container.appendChild(renderer.domElement);
+      rendererRef.current = renderer;
 
-    window.addEventListener('resize', handleResize);
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+      scene.add(ambientLight);
 
-    const animate = () => {
-      requestAnimationFrame(animate);
-      controls.update();
-      renderer.render(scene, camera);
-    };
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      directionalLight.position.set(5, 3, 5);
+      scene.add(directionalLight);
 
-    animate();
+      const earthGeometry = new THREE.SphereGeometry(5, 32, 32);
+      const earthTexture = new THREE.TextureLoader().load('https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg');
+      const earthMaterial = new THREE.MeshPhongMaterial({ map: earthTexture });
+      const earth = new THREE.Mesh(earthGeometry, earthMaterial);
+      scene.add(earth);
+      earthRef.current = earth;
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-      container.removeChild(renderer.domElement);
-      renderer.dispose();
-    };
+      const issGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+      const issMaterial = new THREE.MeshPhongMaterial({ color: 0xff0000 });
+      const issMarker = new THREE.Mesh(issGeometry, issMaterial);
+      scene.add(issMarker);
+      issMarkerRef.current = issMarker;
+
+      const controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.05;
+      controlsRef.current = controls;
+
+      camera.position.z = 15;
+
+      const handleResize = () => {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+      };
+
+      window.addEventListener('resize', handleResize);
+
+      const animate = () => {
+        requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      };
+
+      animate();
+      isInitializedRef.current = true;
+
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        container.removeChild(renderer.domElement);
+        renderer.dispose();
+        isInitializedRef.current = false;
+      };
+    }
   }, [location]);
 
   useEffect(() => {

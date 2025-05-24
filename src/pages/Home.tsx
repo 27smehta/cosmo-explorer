@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Layout from "../components/layout/Layout";
@@ -7,6 +6,7 @@ import GameCard from "../components/games/GameCard";
 import { articles } from "../data/articles";
 import { games } from "../data/games";
 import { Rocket, Book, Gamepad, Star } from "lucide-react";
+import NewsletterSubscription from '../components/NewsletterSubscription';
 
 const Home = () => {
   const [featuredArticles, setFeaturedArticles] = useState(articles.slice(0, 3));
@@ -108,6 +108,10 @@ const Home = () => {
           </div>
         </div>
       </section>
+
+      <div className="mt-12">
+        <NewsletterSubscription />
+      </div>
     </Layout>
   );
 };

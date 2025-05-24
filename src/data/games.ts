@@ -1,4 +1,3 @@
-
 import { Game } from "../types";
 
 export const games: Game[] = [
@@ -22,5 +21,12 @@ export const games: Game[] = [
     description: "Test your knowledge of space exploration, astronomy, and cosmic phenomena in this timed quiz game. Compete for high scores and challenge yourself with questions ranging from basic to expert-level space science.",
     image: "https://images.unsplash.com/photo-1444703686981-a3abbc4d4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80",
     route: "/games/space-trivia"
+  },
+  {
+    id: "reflex-test",
+    title: "Astro Reflex Challenge",
+    description: "Test your reaction time in this astronaut training exercise. Click when the screen turns green and see how fast your reflexes are. Perfect for aspiring astronauts!",
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1080&q=80",
+    route: "/games/reflex-test"
   }
 ];
