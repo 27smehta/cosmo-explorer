@@ -4,6 +4,15 @@
   "outputDirectory": "dist",
   "headers": [
     {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/javascript"
+        }
+      ]
+    },
+    {
       "source": "/(.*)\\.js",
       "headers": [
         {
@@ -38,7 +47,10 @@
     },
     {
       "src": "/assets/(.*)",
-      "dest": "/assets/$1"
+      "dest": "/assets/$1",
+      "headers": {
+        "Content-Type": "application/javascript"
+      }
     },
     {
       "handle": "filesystem"
