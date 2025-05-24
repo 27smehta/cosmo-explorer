@@ -39,9 +39,6 @@ export default defineConfig(({ mode }) => ({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: true,
-    modulePreload: {
-      polyfill: true
-    },
     rollupOptions: {
       output: {
         format: 'es',
