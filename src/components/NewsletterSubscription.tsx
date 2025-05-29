@@ -7,10 +7,11 @@ const NewsletterSubscription: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [verificationLink, setVerificationLink] = useState<string | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const siteKey = import.meta.env.VITE_HCAPTCHA_SITE_KEY;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!captchaToken) {
+    if (siteKey && !captchaToken) {
       toast.error('Please complete the CAPTCHA');
       return;
     }
@@ -72,17 +73,19 @@ const NewsletterSubscription: React.FC = () => {
           />
         </div>
 
-        <div className="flex justify-center">
-          <HCaptcha
-            sitekey={import.meta.env.VITE_HCAPTCHA_SITE_KEY || ''}
-            onVerify={setCaptchaToken}
-            onExpire={() => setCaptchaToken(null)}
-          />
-        </div>
+        {siteKey && (
+          <div className="flex justify-center">
+            <HCaptcha
+              sitekey={siteKey}
+              onVerify={setCaptchaToken}
+              onExpire={() => setCaptchaToken(null)}
+            />
+          </div>
+        )}
 
         <button
           type="submit"
-          disabled={loading || !captchaToken}
+          disabled={loading || (siteKey && !captchaToken)}
           className="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? 'Subscribing...' : 'Subscribe'}

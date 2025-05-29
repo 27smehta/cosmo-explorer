@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Rocket, BookOpen, Gamepad2, Scale, Sparkles, Calendar, Map, Home } from "lucide-react";
+import { Rocket, BookOpen, Gamepad2, Scale, Sparkles, Calendar, Map, Home, GraduationCap } from "lucide-react";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,7 +28,8 @@ const Header = () => {
     { path: "/zodiac-sign", label: "Zodiac Sign", icon: <Sparkles className="h-4 w-4" /> },
     { path: "/astronomical-events", label: "Astronomical Events", icon: <Calendar className="h-4 w-4" /> },
     { path: "/iss-tracker", label: "ISS Tracker", icon: <Rocket className="h-4 w-4" /> },
-    { path: "/sky-map", label: "Sky Map", icon: <Map className="h-4 w-4" /> }
+    { path: "/sky-map", label: "Sky Map", icon: <Map className="h-4 w-4" /> },
+    { path: "/career-explorer", label: "Career Explorer", icon: <GraduationCap className="h-4 w-4" /> }
   ];
 
   const isActive = (path: string) => {

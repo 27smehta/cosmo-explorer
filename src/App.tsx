@@ -12,11 +12,13 @@ import PlanetMatcher from "./games/PlanetMatcher";
 import ReflexTest from "./games/ReflexTest";
 import VerificationSuccess from "./pages/verification-success";
 import UnsubscribeSuccess from "./pages/unsubscribe-success";
+import CareerExplorer from "./pages/CareerExplorer";
 import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <Router>
+      <Toaster position="top-right" />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/articles" element={<Articles />} />
@@ -26,13 +28,13 @@ function App() {
         <Route path="/astronomical-events" element={<AstronomicalEvents />} />
         <Route path="/iss-tracker" element={<ISSTrackerPage />} />
         <Route path="/sky-map" element={<SkyMapPage />} />
+        <Route path="/career-explorer" element={<CareerExplorer />} />
         <Route path="/games/space-trivia" element={<SpaceTrivia />} />
         <Route path="/games/planet-matcher" element={<PlanetMatcher />} />
         <Route path="/games/reflex-test" element={<ReflexTest />} />
         <Route path="/verification-success" element={<VerificationSuccess />} />
         <Route path="/unsubscribe-success" element={<UnsubscribeSuccess />} />
       </Routes>
-      <Toaster position="top-right" />
     </Router>
   );
 }
