@@ -2,296 +2,429 @@ export interface CareerPath {
   id: string;
   title: string;
   description: string;
-  education: string[];
+  education: {
+    required: string[];
+    recommended: string[];
+  };
   skills: string[];
-  companies: string[];
+  responsibilities: string[];
   salary: {
     entry: string;
-    mid: string;
-    senior: string;
+    experienced: string;
   };
   resources: {
     courses: string[];
     certifications: string[];
-    books: string[];
+    organizations: string[];
   };
+  companies: string[];
 }
 
 export const careerPaths: CareerPath[] = [
   {
     id: "aerospace-engineer",
     title: "Aerospace Engineer",
-    description: "Design and develop aircraft, spacecraft, satellites, and missiles",
-    education: [
-      "Bachelor's in Aerospace Engineering",
-      "Master's in Aerospace Engineering (recommended)",
-      "PhD for research positions"
-    ],
+    description: "Design and develop aircraft, spacecraft, satellites, and missiles. Work on the cutting edge of technology to advance space exploration.",
+    education: {
+      required: [
+        "Bachelor's degree in Aerospace Engineering or related field",
+        "Master's degree (recommended for advancement)"
+      ],
+      recommended: [
+        "PhD for research positions",
+        "Specialized certifications in specific aerospace systems"
+      ]
+    },
     skills: [
-      "CAD Software",
-      "Aerodynamics",
-      "Propulsion Systems",
-      "Materials Science",
-      "Systems Engineering"
+      "Advanced mathematics",
+      "Computer-aided design (CAD)",
+      "Systems engineering",
+      "Project management",
+      "Problem-solving",
+      "Technical writing"
     ],
-    companies: [
-      "NASA",
-      "SpaceX",
-      "Boeing",
-      "Lockheed Martin",
-      "Blue Origin"
+    responsibilities: [
+      "Design and test aircraft and spacecraft",
+      "Develop new technologies for space exploration",
+      "Analyze and solve complex engineering problems",
+      "Collaborate with interdisciplinary teams",
+      "Ensure compliance with safety regulations"
     ],
     salary: {
       entry: "$70,000 - $90,000",
-      mid: "$90,000 - $120,000",
-      senior: "$120,000 - $180,000"
+      experienced: "$120,000 - $150,000+"
     },
     resources: {
       courses: [
         "MIT OpenCourseWare - Aerospace Engineering",
         "Coursera - Introduction to Aerospace Engineering",
-        "edX - Space Mission Design"
+        "edX - Space Systems Engineering"
       ],
       certifications: [
         "Professional Engineer (PE) License",
         "Project Management Professional (PMP)",
-        "Six Sigma Certification"
+        "Systems Engineering Professional Certification"
       ],
-      books: [
-        "Introduction to Flight by John Anderson",
-        "Space Mission Analysis and Design by Wiley Larson",
-        "Aircraft Design: A Conceptual Approach by Daniel Raymer"
+      organizations: [
+        "American Institute of Aeronautics and Astronautics (AIAA)",
+        "Society of Aerospace Engineers",
+        "International Astronautical Federation"
       ]
-    }
+    },
+    companies: [
+      "NASA",
+      "SpaceX",
+      "Boeing",
+      "Lockheed Martin",
+      "Blue Origin",
+      "Northrop Grumman"
+    ]
+  },
+  {
+    id: "astronomer",
+    title: "Astronomer",
+    description: "Study celestial objects and phenomena to understand the universe. Conduct research and make discoveries about space, stars, planets, and galaxies.",
+    education: {
+      required: [
+        "Bachelor's degree in Astronomy, Physics, or related field",
+        "PhD in Astronomy or Astrophysics"
+      ],
+      recommended: [
+        "Postdoctoral research experience",
+        "Specialized training in specific astronomical instruments"
+      ]
+    },
+    skills: [
+      "Advanced mathematics",
+      "Data analysis",
+      "Computer programming",
+      "Scientific research methods",
+      "Technical writing",
+      "Observational techniques"
+    ],
+    responsibilities: [
+      "Conduct astronomical research",
+      "Analyze data from telescopes and satellites",
+      "Develop theoretical models",
+      "Publish research findings",
+      "Collaborate with international research teams"
+    ],
+    salary: {
+      entry: "$60,000 - $80,000",
+      experienced: "$100,000 - $150,000+"
+    },
+    resources: {
+      courses: [
+        "HarvardX - Introduction to Astrophysics",
+        "Coursera - Astronomy: Exploring Time and Space",
+        "edX - The Science of the Solar System"
+      ],
+      certifications: [
+        "Professional certification in specific astronomical instruments",
+        "Data analysis certifications"
+      ],
+      organizations: [
+        "American Astronomical Society",
+        "International Astronomical Union",
+        "Royal Astronomical Society"
+      ]
+    },
+    companies: [
+      "NASA",
+      "European Space Agency",
+      "National Radio Astronomy Observatory",
+      "Space Telescope Science Institute",
+      "Major research universities"
+    ]
   },
   {
     id: "space-scientist",
     title: "Space Scientist",
-    description: "Research and study space phenomena, celestial bodies, and space exploration",
-    education: [
-      "Bachelor's in Physics/Astronomy",
-      "Master's in Space Science",
-      "PhD in Astrophysics or related field"
-    ],
+    description: "Conduct research on space phenomena, planetary science, and astrophysics. Contribute to our understanding of the universe and space exploration.",
+    education: {
+      required: [
+        "Bachelor's degree in Physics, Astronomy, or related field",
+        "PhD in Space Science or related field"
+      ],
+      recommended: [
+        "Postdoctoral research experience",
+        "Specialized training in space instrumentation"
+      ]
+    },
     skills: [
-      "Data Analysis",
-      "Scientific Computing",
-      "Research Methods",
-      "Telescope Operation",
-      "Scientific Writing"
+      "Research methodology",
+      "Data analysis",
+      "Scientific computing",
+      "Technical writing",
+      "Problem-solving",
+      "Team collaboration"
     ],
+    responsibilities: [
+      "Conduct space research",
+      "Analyze space data",
+      "Publish research papers",
+      "Collaborate with international teams",
+      "Develop new research methods"
+    ],
+    salary: {
+      entry: "$60,000 - $80,000",
+      experienced: "$110,000 - $160,000+"
+    },
+    resources: {
+      courses: [
+        "Space Science and Technology",
+        "Planetary Science",
+        "Astrophysics Research Methods"
+      ],
+      certifications: [
+        "Research Methodology",
+        "Data Analysis",
+        "Scientific Computing Certification"
+      ],
+      organizations: [
+        "American Geophysical Union",
+        "Planetary Society",
+        "Space Science Institute"
+      ]
+    },
     companies: [
       "NASA",
       "ESA",
       "SETI Institute",
       "Space Science Institute",
       "Universities"
-    ],
-    salary: {
-      entry: "$60,000 - $80,000",
-      mid: "$80,000 - $110,000",
-      senior: "$110,000 - $160,000"
-    },
-    resources: {
-      courses: [
-        "HarvardX - Astrophysics",
-        "Coursera - Astronomy and Space Science",
-        "edX - Introduction to Astrophysics"
-      ],
-      certifications: [
-        "Research Certification",
-        "Data Science Certification",
-        "Scientific Computing Certification"
-      ],
-      books: [
-        "Astrophysics for People in a Hurry by Neil deGrasse Tyson",
-        "The Elegant Universe by Brian Greene",
-        "A Brief History of Time by Stephen Hawking"
-      ]
-    }
+    ]
   },
   {
     id: "space-software-engineer",
     title: "Space Software Engineer",
-    description: "Develop software for space systems, satellites, and ground control",
-    education: [
-      "Bachelor's in Computer Science",
-      "Master's in Software Engineering",
-      "Specialized space systems training"
-    ],
+    description: "Develop software systems for space missions, satellites, and ground control systems. Create reliable and efficient software for space applications.",
+    education: {
+      required: [
+        "Bachelor's degree in Computer Science or Software Engineering",
+        "Experience with space systems"
+      ],
+      recommended: [
+        "Master's degree in Space Systems Engineering",
+        "Certifications in space software development"
+      ]
+    },
     skills: [
-      "C++/Python",
-      "Embedded Systems",
-      "Real-time Systems",
-      "Space Systems",
-      "Testing & Verification"
+      "Software development",
+      "Systems programming",
+      "Real-time systems",
+      "Testing & Verification",
+      "Space protocols",
+      "Embedded systems"
     ],
+    responsibilities: [
+      "Develop space mission software",
+      "Create ground control systems",
+      "Implement safety-critical systems",
+      "Test and verify software",
+      "Maintain existing systems"
+    ],
+    salary: {
+      entry: "$80,000 - $100,000",
+      experienced: "$140,000 - $200,000+"
+    },
+    resources: {
+      courses: [
+        "Space Systems Software Engineering",
+        "Real-time Systems Development",
+        "Space Mission Software"
+      ],
+      certifications: [
+        "Space Systems Certification",
+        "Software Engineering Certification",
+        "Safety-Critical Systems"
+      ],
+      organizations: [
+        "Space Software Engineering Association",
+        "International Space Software Association",
+        "Space Systems Engineering Society"
+      ]
+    },
     companies: [
       "SpaceX",
       "NASA JPL",
       "Maxar Technologies",
       "Planet Labs",
       "Rocket Lab"
-    ],
-    salary: {
-      entry: "$80,000 - $100,000",
-      mid: "$100,000 - $140,000",
-      senior: "$140,000 - $200,000"
-    },
-    resources: {
-      courses: [
-        "MIT - Space Systems Engineering",
-        "Udacity - Space Systems Software",
-        "Coursera - Space Mission Design"
-      ],
-      certifications: [
-        "Space Systems Certification",
-        "Embedded Systems Certification",
-        "Software Engineering Certification"
-      ],
-      books: [
-        "Space Mission Engineering by James Wertz",
-        "Software Engineering for Space Systems",
-        "Space Systems Software Engineering"
-      ]
-    }
+    ]
   },
   {
     id: "space-medicine",
     title: "Space Medicine Specialist",
-    description: "Study and address health challenges in space environments",
-    education: [
-      "Medical Degree (MD)",
-      "Residency in Aerospace Medicine",
-      "Space Medicine Fellowship"
-    ],
+    description: "Study and address the health challenges of space travel. Develop medical protocols and research human adaptation to space environments.",
+    education: {
+      required: [
+        "Medical degree (MD or DO)",
+        "Residency in Aerospace Medicine"
+      ],
+      recommended: [
+        "Fellowship in Space Medicine",
+        "Research experience in space physiology"
+      ]
+    },
     skills: [
-      "Medical Research",
-      "Physiology",
-      "Emergency Medicine",
-      "Space Physiology",
-      "Clinical Trials"
+      "Medical expertise",
+      "Research methodology",
+      "Space physiology",
+      "Emergency medicine",
+      "Clinical trials",
+      "Team leadership"
     ],
-    companies: [
-      "NASA Johnson Space Center",
-      "ESA",
-      "SpaceX",
-      "Blue Origin",
-      "Research Institutions"
+    responsibilities: [
+      "Develop space medical protocols",
+      "Conduct space health research",
+      "Monitor astronaut health",
+      "Train medical teams",
+      "Implement safety measures"
     ],
     salary: {
       entry: "$90,000 - $120,000",
-      mid: "$120,000 - $160,000",
-      senior: "$160,000 - $220,000"
+      experienced: "$160,000 - $220,000+"
     },
     resources: {
       courses: [
-        "NASA - Space Medicine",
-        "Harvard Medical School - Space Physiology",
-        "ESA - Space Medicine Training"
+        "Space Medicine Fundamentals",
+        "Aerospace Physiology",
+        "Space Health Research"
       ],
       certifications: [
         "Aerospace Medicine Certification",
         "Space Medicine Specialist",
         "Research Ethics Certification"
       ],
-      books: [
-        "Space Physiology and Medicine by Nicogossian",
-        "Human Spaceflight by Larson",
-        "Space Medicine in Project Mercury"
+      organizations: [
+        "Aerospace Medical Association",
+        "Space Medicine Association",
+        "International Space Medicine Society"
       ]
-    }
+    },
+    companies: [
+      "NASA Johnson Space Center",
+      "ESA",
+      "SpaceX",
+      "Blue Origin",
+      "Research Institutions"
+    ]
   },
   {
     id: "space-law",
     title: "Space Law Attorney",
-    description: "Specialize in legal aspects of space activities and regulations",
-    education: [
-      "Law Degree (JD)",
-      "Specialization in Space Law",
-      "International Law Courses"
-    ],
+    description: "Specialize in legal aspects of space activities, including international space law, commercial space operations, and space policy.",
+    education: {
+      required: [
+        "Juris Doctor (JD) degree",
+        "Bar admission"
+      ],
+      recommended: [
+        "Master's in Space Law",
+        "International law experience"
+      ]
+    },
     skills: [
-      "International Law",
-      "Regulatory Compliance",
-      "Contract Law",
-      "Policy Analysis",
-      "Space Regulations"
+      "Legal analysis",
+      "International law",
+      "Policy development",
+      "Contract negotiation",
+      "Regulatory compliance",
+      "Space regulations"
     ],
+    responsibilities: [
+      "Advise on space law matters",
+      "Draft space-related contracts",
+      "Handle regulatory compliance",
+      "Represent space companies",
+      "Develop space policies"
+    ],
+    salary: {
+      entry: "$85,000 - $110,000",
+      experienced: "$150,000 - $250,000+"
+    },
+    resources: {
+      courses: [
+        "Space Law Fundamentals",
+        "International Space Law",
+        "Space Policy Development"
+      ],
+      certifications: [
+        "Space Law Certification",
+        "International Law",
+        "Policy Analysis Certification"
+      ],
+      organizations: [
+        "International Institute of Space Law",
+        "Space Law Association",
+        "Space Policy Institute"
+      ]
+    },
     companies: [
       "Space Law Firms",
       "Government Agencies",
       "Space Companies",
       "International Organizations",
       "Research Institutes"
-    ],
-    salary: {
-      entry: "$85,000 - $110,000",
-      mid: "$110,000 - $150,000",
-      senior: "$150,000 - $250,000"
-    },
-    resources: {
-      courses: [
-        "McGill University - Space Law",
-        "International Space University",
-        "Space Law and Policy"
-      ],
-      certifications: [
-        "Space Law Certification",
-        "International Law Certification",
-        "Policy Analysis Certification"
-      ],
-      books: [
-        "Space Law: A Treatise by Lyall",
-        "International Space Law by Jakhu",
-        "Space Law and Policy"
-      ]
-    }
+    ]
   },
   {
     id: "space-robotics",
     title: "Space Robotics Engineer",
-    description: "Design and develop robots for space exploration and operations",
-    education: [
-      "Bachelor's in Robotics/Mechanical Engineering",
-      "Master's in Robotics",
-      "Space Systems Specialization"
-    ],
+    description: "Design and develop robotic systems for space exploration, including rovers, robotic arms, and autonomous systems for space missions.",
+    education: {
+      required: [
+        "Bachelor's degree in Robotics, Mechanical Engineering, or related field",
+        "Experience in robotics development"
+      ],
+      recommended: [
+        "Master's in Space Systems",
+        "Robotics certifications"
+      ]
+    },
     skills: [
-      "Robotics Design",
-      "Control Systems",
-      "AI/ML",
-      "Space Systems",
-      "Mechanical Design"
+      "Robotics design",
+      "Control systems",
+      "Mechanical engineering",
+      "Programming",
+      "Systems integration",
+      "Mechanical design"
     ],
+    responsibilities: [
+      "Design space robots",
+      "Develop control systems",
+      "Test robotic systems",
+      "Integrate with spacecraft",
+      "Maintain robotic systems"
+    ],
+    salary: {
+      entry: "$75,000 - $95,000",
+      experienced: "$130,000 - $180,000+"
+    },
+    resources: {
+      courses: [
+        "Space Robotics Engineering",
+        "Robotic Control Systems",
+        "Space Systems Integration"
+      ],
+      certifications: [
+        "Robotics Engineering",
+        "Control Systems",
+        "Space Systems Certification"
+      ],
+      organizations: [
+        "Space Robotics Association",
+        "International Space Robotics Society",
+        "Robotics Engineering Institute"
+      ]
+    },
     companies: [
       "NASA JPL",
       "SpaceX",
       "ESA",
       "Robotics Companies",
       "Research Labs"
-    ],
-    salary: {
-      entry: "$75,000 - $95,000",
-      mid: "$95,000 - $130,000",
-      senior: "$130,000 - $180,000"
-    },
-    resources: {
-      courses: [
-        "MIT - Space Robotics",
-        "Stanford - Robotics",
-        "Space Systems Engineering"
-      ],
-      certifications: [
-        "Robotics Certification",
-        "AI/ML Certification",
-        "Space Systems Certification"
-      ],
-      books: [
-        "Space Robotics by Ellery",
-        "Robotics in Space",
-        "Space Systems Engineering"
-      ]
-    }
+    ]
   }
 ]; 
