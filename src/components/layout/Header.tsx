@@ -1,6 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Rocket, BookOpen, Gamepad2, Scale, Sparkles, Calendar, Map, Home, GraduationCap } from "lucide-react";
+import { Rocket, BookOpen, Gamepad2, Scale, Sparkles, Calendar, Map, Home, GraduationCap, ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -22,7 +28,6 @@ const Header = () => {
 
   const navItems = [
     { path: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
-    { path: "/articles", label: "Articles", icon: <BookOpen className="h-4 w-4" /> },
     { path: "/games", label: "Games", icon: <Gamepad2 className="h-4 w-4" /> },
     { path: "/weight-converter", label: "Weight Converter", icon: <Scale className="h-4 w-4" /> },
     { path: "/zodiac-sign", label: "Zodiac Sign", icon: <Sparkles className="h-4 w-4" /> },
@@ -50,7 +55,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <Link
             to="/"
-            className="flex items-center space-x-2 text-xl font-space font-bold"
+            className="flex items-center space-x-2 text-xl font-space font-bold mr-8"
           >
             <Rocket className="h-8 w-8 text-cosmos-purple animate-pulse-glow" />
             <span className="text-white">COSMO<span className="text-cosmos-purple">EXPLORER</span></span>
@@ -72,6 +77,29 @@ const Header = () => {
                 <span>{item.label}</span>
               </Link>
             ))}
+            <DropdownMenu>
+              <DropdownMenuTrigger className={`flex items-center space-x-2 py-2 text-sm font-medium transition-colors ${
+                isActive("/articles")
+                  ? "text-cosmos-purple"
+                  : "text-gray-300 hover:text-white"
+              }`}>
+                <BookOpen className="h-4 w-4" />
+                <span>Articles</span>
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-space-800 border-space-700">
+                <DropdownMenuItem asChild>
+                  <Link to="/articles" className="text-gray-300 hover:text-white hover:bg-space-700">
+                    All Articles
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/filtered-articles" className="text-gray-300 hover:text-white hover:bg-space-700">
+                    Latest Space News
+                  </Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -107,6 +135,28 @@ const Header = () => {
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
           <nav className="md:hidden mt-4 pb-2 space-y-3">
+            <Link
+              to="/articles"
+              className={`flex items-center space-x-3 py-3 px-4 rounded-md transition-colors ${
+                isActive("/articles")
+                  ? "bg-space-700 text-cosmos-purple"
+                  : "text-gray-300 hover:bg-space-700/50 hover:text-white"
+              }`}
+            >
+              <BookOpen className="h-4 w-4" />
+              <span>All Articles</span>
+            </Link>
+            <Link
+              to="/filtered-articles"
+              className={`flex items-center space-x-3 py-3 px-4 rounded-md transition-colors ${
+                isActive("/filtered-articles")
+                  ? "bg-space-700 text-cosmos-purple"
+                  : "text-gray-300 hover:bg-space-700/50 hover:text-white"
+              }`}
+            >
+              <BookOpen className="h-4 w-4" />
+              <span>Latest Space News</span>
+            </Link>
             {navItems.map((item) => (
               <Link
                 key={item.label}

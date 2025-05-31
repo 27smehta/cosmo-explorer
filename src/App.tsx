@@ -13,6 +13,7 @@ import ReflexTest from "./games/ReflexTest";
 import VerificationSuccess from "./pages/verification-success";
 import UnsubscribeSuccess from "./pages/unsubscribe-success";
 import CareerExplorer from "./pages/CareerExplorer";
+import FilteredArticles from "./pages/FilteredArticles";
 import { Toaster } from "react-hot-toast";
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Route path="/games/reflex-test" element={<ReflexTest />} />
         <Route path="/verification-success" element={<VerificationSuccess />} />
         <Route path="/unsubscribe-success" element={<UnsubscribeSuccess />} />
+        <Route path="/filtered-articles" element={<FilteredArticles />} />
       </Routes>
     </Router>
   );

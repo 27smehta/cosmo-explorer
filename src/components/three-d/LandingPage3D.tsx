@@ -184,3 +184,5 @@ const LandingPage3D = () => {
     </div>
   );
 }
+
+export default LandingPage3D;

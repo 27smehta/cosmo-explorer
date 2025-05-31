@@ -1,9 +1,9 @@
-
 import { useState } from "react";
 import Layout from "../components/layout/Layout";
 import ArticleCard from "../components/articles/ArticleCard";
 import { articles } from "../data/articles";
 import { Book } from "lucide-react";
+import { Link } from 'react-router-dom';
 
 const Articles = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -55,6 +55,14 @@ const Articles = () => {
                 </svg>
               </div>
             </div>
+            <div className="mt-6">
+              <Link 
+                to="/filtered-articles" 
+                className="inline-block bg-gradient-to-r from-cosmos-purple to-cosmos-blue hover:from-space-700 hover:to-space-800 text-white px-8 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg"
+              >
+                View Latest Space News
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -95,6 +103,7 @@ const Articles = () => {
           )}
         </div>
       </section>
+      <Link to="/filtered-articles">Go to Filtered Articles</Link>
     </Layout>
   );
 };

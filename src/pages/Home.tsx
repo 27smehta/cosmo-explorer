@@ -89,4 +89,3 @@ const Home = () => {
 export default Home;
 
 
-6

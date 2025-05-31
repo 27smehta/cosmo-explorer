@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import SkyMapPage from "./pages/SkyMapPage";
@@ -10,8 +11,9 @@ import ZodiacSign from "./pages/ZodiacSign";
 import AstronomicalEvents from "./pages/AstronomicalEvents";
 import ISSTrackerPage from "./pages/ISSTrackerPage";
 import CareerPathExplorer from "./components/CareerPathExplorer";
+import FilteredArticles from './pages/FilteredArticles';
 
-const AppRoutes = () => {
+const AppRoutes: React.FC = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -24,6 +26,7 @@ const AppRoutes = () => {
       <Route path="/astronomical-events" element={<AstronomicalEvents />} />
       <Route path="/iss-tracker" element={<ISSTrackerPage />} />
       <Route path="/career-explorer" element={<CareerPathExplorer />} />
+      <Route path="/filtered-articles" element={<FilteredArticles />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
